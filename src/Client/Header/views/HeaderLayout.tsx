@@ -30,16 +30,48 @@ const ComunityList = [
   { name: 'Automations', description: 'Build strategic funnels that will convert', href: '#', icon: ArrowPathIcon },
 ]
 
+const NavegationList = [
+  { name: 'Inicio', href: '#', classnamefull: 'text-sm font-semibold leading-6 text-blue-700 hover:text-blue-900' ,
+     classNameSmall: '-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-blue-700 hover:text-blue-900 hover:bg-gray-50'
+    },
+  { name: 'Destinos', href: '#', classnamefull: 'text-sm font-semibold leading-6 text-blue-700 hover:text-blue-900',
+    classNameSmall: '-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-blue-700 hover:text-blue-900 hover:bg-gray-50'
+   },
+  { name: 'Experiencias', href: '#', classnamefull: 'text-sm font-semibold leading-6 text-blue-700 hover:text-blue-900',
+    classNameSmall: '-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-blue-700 hover:text-blue-900 hover:bg-gray-50'
+   },
+  { name: 'Trasportes', href: '#', classnamefull: 'text-sm font-semibold leading-6 text-blue-700 hover:text-blue-900',
+    classNameSmall: '-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-blue-700 hover:text-blue-900 hover:bg-gray-50'
+   },
+]
+
+
+
+type  ItemNavegationProps = {
+  className: string
+  href: string
+  name: string
+}
+
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
+const ItemNavegation = ({className, href, name}: ItemNavegationProps) => {
+  return (
+    <a href={href} className={className}>
+      {name}
+    </a>
+  )
+}
+
+
 const  Navegation  = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="bg-white">
+    <header className="bg-white shadow-[0_0_5px_0_rgba(0,0,0,0.3)]">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
@@ -59,21 +91,18 @@ const  Navegation  = () => {
         </div>
         <PopoverGroup className="hidden lg:flex lg:gap-x-12">
           
-
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Inicio
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Destinos
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Experiencias
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Trasportes
-          </a>
+           {
+            NavegationList.map((item) => (
+              <ItemNavegation
+                key={item.name}
+                href={item.href}
+                name={item.name}
+                className={item.classnamefull}
+              />
+            ))
+           }
           <Popover className="relative">
-            <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
+            <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-blue-700 hover:text-blue-900">
               Comunidad
               <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
             </PopoverButton>
@@ -103,16 +132,16 @@ const  Navegation  = () => {
               </div>
             </PopoverPanel>
           </Popover>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <a href="#" className="text-sm font-semibold leading-6 text-blue-700 hover:text-blue-900">
             Coctacto
           </a>
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end space-x-5">
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <a href="#" className="text-sm font-semibold leading-6 text-blue-700 hover:text-blue-900">
             Mi cuenta <span aria-hidden="true">&rarr;</span>
           </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-             <ShoppingCartIcon className='h-6 w-6 text-gray-600 group-hover:text-indigo-600'/>
+          <a href="#" className="text-sm font-semibold leading-6 text-blue-700 hover:text-blue-900">
+             <ShoppingCartIcon className='h-6 w-6 text-blue-700 hover:text-blue-900 group-hover:text-indigo-600'/>
           </a>
         </div>
       </nav>
@@ -140,37 +169,23 @@ const  Navegation  = () => {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Inicio
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Destinos
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Experiencias
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Trasportes
-                </a>
+              {
+                NavegationList.map((item) => (
+                  <ItemNavegation
+                    key={item.name}
+                    href={item.href}
+                    name={item.name}
+                    className={item.classNameSmall}
+                  />
+                ))
+              }
                 <Disclosure as="div" className="-mx-3">
                   {({ open }) => (
                     <>
-                      <DisclosureButton className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+                      <DisclosureButton className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-blue-700 hover:text-blue-900 hover:bg-gray-50">
                       Comunidad
                         <ChevronDownIcon
-                          className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
+                          className={classNames(open ? 'rotate-180' : '','h-5 w-5 flex-none')}
                           aria-hidden="true"
                         />
                       </DisclosureButton>
@@ -181,7 +196,7 @@ const  Navegation  = () => {
               <div className="py-6">
                 <a
                   href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 space-x-3"
+                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-blue-700 hover:text-blue-900 hover:bg-gray-50 space-x-3"
                 >
                   Mi cuenta
                 </a>
@@ -189,7 +204,7 @@ const  Navegation  = () => {
                   href="#"
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
-                  <ShoppingCartIcon className='h-6 w-6 text-gray-600 group-hover:text-indigo-600'/>
+                  <ShoppingCartIcon className='h-6 w-6 text-blue-700 hover:text-blue-900 group-hover:text-indigo-600'/>
                 </a>
               </div>
             </div>
