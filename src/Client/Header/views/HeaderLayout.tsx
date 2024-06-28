@@ -5,6 +5,7 @@ import {
   DialogPanel,
   Disclosure,
   DisclosureButton,
+  DisclosurePanel,
   Popover,
   PopoverButton,
   PopoverGroup,
@@ -20,7 +21,7 @@ import {
   XMarkIcon,
   ShoppingCartIcon
 } from '@heroicons/react/24/outline'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import { ChevronDownIcon  } from '@heroicons/react/20/solid'
 
 const ComunityList = [
   { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
@@ -65,6 +66,7 @@ const ItemNavegation = ({className, href, name}: ItemNavegationProps) => {
     </a>
   )
 }
+
 
 
 const  Navegation  = () => {
@@ -182,14 +184,26 @@ const  Navegation  = () => {
                 <Disclosure as="div" className="-mx-3">
                   {({ open }) => (
                     <>
-                      <DisclosureButton className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-blue-700 hover:text-blue-900 hover:bg-gray-50">
-                      Comunidad
-                        <ChevronDownIcon
-                          className={classNames(open ? 'rotate-180' : '','h-5 w-5 flex-none')}
-                          aria-hidden="true"
-                        />
-                      </DisclosureButton>
-                    </>
+                    <DisclosureButton className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-blue-700 hover:text-blue-900 hover:bg-gray-50">
+                    Comunidad
+                      <ChevronDownIcon
+                        className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
+                        aria-hidden="true"
+                      />
+                    </DisclosureButton>
+                    <DisclosurePanel className="mt-2 space-y-2">
+                      {[...ComunityList].map((item) => (
+                        <DisclosureButton
+                          key={item.name}
+                          as="a"
+                          href={item.href}
+                          className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-blue-700 hover:text-blue-900 hover:bg-gray-50"
+                        >
+                          {item.name}
+                        </DisclosureButton>
+                      ))}
+                    </DisclosurePanel>
+                  </>
                   )}
                 </Disclosure>
               </div>
