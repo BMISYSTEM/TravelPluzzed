@@ -21,9 +21,8 @@ import {
 import logoNAvegation from "../../../assets/LOGOS_TRAVEL_PUZZEL_2024-02-250x84.png";
 import { NavegationList } from "./data/NavegationList";
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
+
+
 export const ClientNav = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openSubmenuComunity,setopenSubmenuComunity] = useState(false)
