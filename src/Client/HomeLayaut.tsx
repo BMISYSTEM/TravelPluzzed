@@ -1,4 +1,5 @@
 import { HeaderLayout } from './Header/views/HeaderLayout'
+import { WishlistLayout } from './Wishlist/views/WishlistLayout'
 
 export const HomeLayaut = () => {
   return (
@@ -6,6 +7,9 @@ export const HomeLayaut = () => {
       {/* navar */}
       <HeaderLayout/>
       {/* mein */}
+      <main>
+        <WishlistLayout/>
+      </main>
       {/* footer */}
     </>
   )
