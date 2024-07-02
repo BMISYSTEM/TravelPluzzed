@@ -35,7 +35,9 @@ export const BannerLayout = () => {
     const [islandSheart,setIslandSheart] = useState(false)
     const buscadorRef = useRef<HTMLInputElement>(null)
   return (
-    <section className=" relative w-full h-[32rem]   bg-red-500  " >
+    <section className=" relative w-full h-full    " style={{
+        height:'85vh'
+    }}>
         <div className='  absolute w-full h-full  flex flex-col gap-3 justify-center items-center p-3'>
             <div className='relative w-1/3 h-full flex flex-col gap-3  p-3 justify-end '>
                 <h1 className='text-2xl font-sans text-white'>Llena tu viaje</h1>
@@ -68,8 +70,10 @@ export const BannerLayout = () => {
                 <TextBannerEnd icon={money} text='Precios finales'/>
             </div>
         </div>
-        <div className='w-full h-[32rem] overflow-hidden'>
-            <img src={banner} alt="" className='w-full h-[40rem] object-fill'/>
+        <div className='w-full overflow-hidden' style={{
+        height:'85vh'
+        }}>
+            <img src={banner} alt="" className='w-full h-full object-fill'/>
         </div>
     </section>
   )
