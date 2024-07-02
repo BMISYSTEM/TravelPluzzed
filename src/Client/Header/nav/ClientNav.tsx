@@ -29,7 +29,7 @@ export const ClientNav = () => {
   return (
     <>
       <nav
-        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+        className="mx-auto w-full  flex  items-center justify-between p-6 lg:px-8 shadow-md"
         aria-label="Global"
       >
         <div className="flex lg:flex-1">

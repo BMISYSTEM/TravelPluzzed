@@ -1,9 +1,11 @@
 import { ClientNav } from '../nav/ClientNav';
+import  { FrontPage } from '../front/FrontPage';
 export const HeaderLayout = () => { 
   return (
-    <header className='w-full shadow-md'>
+   <>
         <ClientNav/>
-    </header>
+        <FrontPage/>
+    </>
   )
 }
 
