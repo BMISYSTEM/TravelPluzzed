@@ -35,24 +35,24 @@ export const MainActivitiesLayout = () => {
     return (
   <section className="w-full flex flex-col items-center justify-center p-6 bg-slate-100">
       <div className="w-full h-16 flex justify-center items-center pb-2">
-        <h1 className="text-4xl font-sans text-gray-600">Principales Destinos</h1>
+        <h1 className="text-4xl font-sans text-gray-600">Principales Experiencias</h1>
       </div>
 
     {/* Targets Principales */}
-    <Link className='' to={"/"} >
+   
         <div className='flex flex-wrap gap-x-6 gap-y-16'>
           {arrayActivities.map((actividad,index)=>(
-              <TargetPrincipal 
-                  key={index}
-                  IMGcarta={Bogota} 
-                  nombre={actividad.citi} 
-                  actividades={Number(actividad.activities)} 
-                  opiniones={Number(actividad.opinions)} 
-                  rating={Number(actividad.valorate)} 
-                  viajeros={Number(actividad.traveler)}/>
+             <Link className='' to={"/"} key={index} >
+               <TargetPrincipal 
+                   IMGcarta={Bogota} 
+                   nombre={actividad.citi} 
+                   actividades={Number(actividad.activities)} 
+                   opiniones={Number(actividad.opinions)} 
+                   rating={Number(actividad.valorate)} 
+                   viajeros={Number(actividad.traveler)}/>
+             </Link>
           ))}
       </div>
-    </Link>
 
     {/* Div con el unico interes de separar elementos */}
     <div className="pb-10"></div>
