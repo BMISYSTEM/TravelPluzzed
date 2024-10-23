@@ -35,7 +35,7 @@ export const BannerLayout = () => {
                 <form action="">
                     <input type="text" ref={buscadorRef} placeholder='Busca tu destino con nosotros' className='p-3 rounded-xl w-[40rem]' onClick={()=>setIslandSheart(true)} />
                     {islandSheart ? 
-                        <section className='absolute ml-[-11rem] w-[60rem] z-50 h-auto bg-white rounded-xl mt-2 shadow-2xl flex flex-col p-2 animate__animated animate__fadeIn'>
+                        <section className='absolute ml-[-11rem] w-[60rem] overflow-auto z-50 h-auto bg-white rounded-xl mt-2 shadow-2xl flex flex-col p-2 animate__animated animate__fadeIn'>
                             <div className='w-full flex items-end justify-end'>
                                 <button onClick={()=>setIslandSheart(false)}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
@@ -44,7 +44,7 @@ export const BannerLayout = () => {
                                 </button>
                             </div>
                             <p className='text-2xl font-bold text-rose-600 text-center'>Top destinos</p>
-                            <div className='w-full flex flex-wrap p-3 gap-x-20 gap-y-10 justify-center ' >
+                            <div className='w-full flex flex-wrap p-3 gap-x-20 gap-y-10 justify-center h-96 ' >
                                 {location ? 
                                     location.map((Locations,index)=>(
                                         // Locations.map((current,index)=>(

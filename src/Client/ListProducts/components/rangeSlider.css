@@ -1,0 +1,21 @@
+/* Ajusta el contenedor del slider */
+.slider-container {
+    width: 100%; /* Ajusta el ancho al 100% del contenedor padre */
+    max-width: 195px; /* Ajusta el ancho máximo según tu preferencia */
+    margin: 0 auto; /* Centra el slider */
+}
+
+/* Ajusta la pista del slider */
+.slider-track {
+    background: #F87171; /* bg-pink-500 */
+    height: 8px; /* Ajusta la altura de la pista */
+}
+
+/* Ajusta los thumbs del slider */
+.slider-thumb {
+    background: #F87171; /* Color del thumb */
+    height: 20px; /* Ajusta la altura del thumb */
+    width: 20px; /* Ajusta el ancho del thumb */
+    border-radius: 50%; /* Hace que los thumbs sean redondos */
+    cursor: pointer; /* Cambia el cursor cuando se pasa sobre el thumb */
+}

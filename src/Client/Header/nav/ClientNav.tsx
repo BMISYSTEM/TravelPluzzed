@@ -20,11 +20,21 @@ import {
 } from "@heroicons/react/24/outline";
 import logoNAvegation from "../../../assets/LOGOS_TRAVEL_PUZZEL_2024-02-250x84.png";
 import { NavegationList } from "./data/NavegationList";
+import { useNavigate } from "react-router-dom";
+
+
 
 
 export const ClientNav = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openSubmenuComunity,setopenSubmenuComunity] = useState(false)
+  const navigate = useNavigate()
+
+
+  const login = (e: React.FormEvent<HTMLFormElement>) =>{
+    e.preventDefault()
+    navigate('/panel')
+  }
   return (
     <>
       <nav
@@ -108,12 +118,33 @@ export const ClientNav = () => {
           </a>
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end space-x-5">
-          <a
-            href="#"
-            className="text-sm font-semibold leading-6 text-blue-700 hover:text-blue-900"
-          >
-            Mi cuenta <span aria-hidden="true">&rarr;</span>
-          </a>
+        <Popover className="relative">
+            <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-blue-700 hover:text-blue-900">
+              Mi cuenta
+              <ChevronDownIcon
+                className="h-5 w-5 flex-none text-gray-400"
+                aria-hidden="true"
+              />
+            </PopoverButton>
+
+            <PopoverPanel
+              transition
+              className="absolute -left-8 top-full z-10 mt-3 w-64 max-w-md overflow-hidden rounded-xl bg-white shadow-lg ring-1 ring-gray-900/5 transition data-[closed]:translate-y-1 data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in"
+            >
+              <form onSubmit={login} action=""className="w-full flex flex-col gap-2 p-2">
+                <label htmlFor="">
+                  Correo electronico
+                </label>
+                <input type="email" className="p-2 text-sm border rounded-xl"/>
+                <label htmlFor="">
+                  PassWord
+                </label>
+                <input type="password" className="p-2 text-sm border rounded-xl"/>
+                <input type="submit" value={'Ir'} className="p-2 bg-sky-700 hover:bg-sky-700/50 transition-all text-white cursor-pointer" />
+              </form>
+            </PopoverPanel>
+          </Popover>
+          
           <a
             href="#"
             className="text-sm font-semibold leading-6 text-blue-700 hover:text-blue-900"

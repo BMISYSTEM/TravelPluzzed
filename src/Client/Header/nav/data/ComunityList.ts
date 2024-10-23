@@ -16,32 +16,32 @@ interface Props {
 
 export const ComunityList:Props[] = [
     {
-      name: "Analytics",
-      description: "Get a better understanding of your traffic",
+      name: "Travel Puzzle Rewards",
+      description: "Afiliate",
       href: "#",
       icon: ChartPieIcon,
     },
     {
-      name: "Engagement",
-      description: "Speak directly to your customers",
+      name: "Blog",
+      description: "Blog",
       href: "#",
       icon: CursorArrowRaysIcon,
     },
     {
-      name: "Security",
-      description: "Your customers’ data will be safe and secure",
+      name: "Fotos",
+      description: "Fotos",
       href: "#",
       icon: FingerPrintIcon,
     },
     {
-      name: "Integrations",
-      description: "Connect with third-party tools",
+      name: "Opiniones",
+      description: "Opiniones",
       href: "#",
       icon: SquaresPlusIcon,
     },
     {
-      name: "Automations",
-      description: "Build strategic funnels that will convert",
+      name: "Nosotros",
+      description: "Nosotros",
       href: "#",
       icon: ArrowPathIcon,
     },
