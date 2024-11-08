@@ -13,7 +13,6 @@ export const ListProductsLayout = () => {
   const baseurl = import.meta.env.VITE_URL_BACK
 
 
-  console.log(baseurl)
   const [products, setProducts] = useState<ListaTours>();
   const [loading, setloading] = useState<boolean>(false);
   const { uuid } = useParams();

@@ -7,8 +7,7 @@ export const useLocations = () => {
 
     const Config = async(setLocations:React.Dispatch<React.SetStateAction<Countrys | null>>) =>{
         try {
-            const {data} = await axios.get('https://apitravelnode.vercel.app/api/freetours/county');
-            console.log(data)
+            const {data} = await axios.get('http://localhost:3000/api/freetours/county');
             setLocations(data)
         } catch (error) {
             if(isAxiosError(error)){

@@ -10,6 +10,7 @@ import Comentarios from '../components/comentarios.tsx';
 import UbicationImages from '../components/UbicationsImages.tsx';
 import axios from 'axios';
 import { DetailProduct } from '../interface/productDetail.ts';
+import Calendary from '../components/calendario.tsx';
 
 
 export const ActivitiesLayaout = () => {
@@ -73,7 +74,7 @@ export const ActivitiesLayaout = () => {
             </div>
 
             {/* Images of the product */}
-            <ImagesProducts urlimagenes={product?.data?.images!}/>
+            <ImagesProducts urlimagenes={product?.data?.images ? product?.data?.images : []!}/>
 
             {/* Buttons for movility in the page */}
 
@@ -141,6 +142,7 @@ export const ActivitiesLayaout = () => {
                     </div>
 
                     {/* Calendary */}
+                    <Calendary/>
                     {/* <Calendary /> */}
                 </div>
             </div>
