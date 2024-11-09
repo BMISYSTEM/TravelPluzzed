@@ -43,9 +43,10 @@ export const ActivitiesLayaout = () => {
       if (loading) {
         return <h1>Cargando la informacion de la api</h1>;
       }
-      console.log(product)
+    const fechasDisponibles = product?.disponibilidad;
+
     return (
-        <section className="w-full h-full bg-slate-100 ">
+        <section className="w-full h-full bg-slate-100 overflow-hidden ">
             <div className="flex flex-col w-full h-full">
                 <div className="flex flex-row p-4 pl-8 pr-8 justify-between w-full ">
                     <div className='flex flex-row gap-4 w-1/2 pl-8'>
@@ -87,7 +88,7 @@ export const ActivitiesLayaout = () => {
                     <div className='p-4 w-2/3 bg-gray-100 gap-8'>
                     <section id='descripcion'>
                         <p dangerouslySetInnerHTML={{ __html: product?.data?.description?.es! }} className='pl-12 text-xl'/>
-                        <iframe width="560" height="315" src={product?.data?.videoURL}   ></iframe>
+                        <iframe width="560" height="315" src={product?.data?.videoURL ? product?.data?.videoURL : ''}   ></iframe>
 
                         {/* Information general */}
                         <div>
@@ -142,8 +143,10 @@ export const ActivitiesLayaout = () => {
                     </div>
 
                     {/* Calendary */}
-                    <Calendary/>
-                    {/* <Calendary /> */}
+                    {fechasDisponibles?.data ? 
+                        <Calendary data={fechasDisponibles?.data} status={fechasDisponibles.status} />
+                    :
+                    null}
                 </div>
             </div>
             <div className='w-full h-12 pl-14 pr-12'>
@@ -169,7 +172,10 @@ export const ActivitiesLayaout = () => {
 
 
                 {/* Comentarios */}
-                <Comentarios  calificacion={3} ciudad='Cali' mensaje='mensaje mensajeeeeeeeeeeeeeeeeeeeeeeeeeeeee' nombre='Armando' pais='Colombia' />
+                {/* {product?.comentarios.data?.map((coment,index)=>(
+                    <Comentarios  calificacion={coment.rate} ciudad='Cali' mensaje={coment.content} nombre={coment.reviewerName} pais={coment.title}/>
+
+                ))} */}
             </section>
             <ClientFooter/>
         </section>

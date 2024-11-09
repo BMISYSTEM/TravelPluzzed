@@ -1,6 +1,27 @@
 export interface DetailProduct {
-    data:   Data;
+    data:           Data;
+    status:         number;
+    disponibilidad: Disponibilidad;
+    comentarios:    Comentarios;
+}
+
+export interface Comentarios {
+    data:   ComentariosDatum[];
     status: number;
+}
+
+export interface ComentariosDatum {
+    id:           number;
+    reviewerName: string;
+    language:     Language;
+    title:        string;
+    content:      string;
+    rate:         number;
+}
+
+export enum Language {
+    English = "English",
+    Spanish = "Spanish",
 }
 
 export interface Data {
@@ -56,4 +77,16 @@ export interface MeetingPoint {
 export interface Price {
     value:    number;
     currency: string;
+}
+
+export interface Disponibilidad {
+    data:   DisponibilidadDatum[];
+    status: number;
+}
+
+export interface DisponibilidadDatum {
+    id:       number;
+    tourId:   number;
+    language: Language;
+    date:     Date;
 }
