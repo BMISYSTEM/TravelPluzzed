@@ -11,7 +11,8 @@ import UbicationImages from '../components/UbicationsImages.tsx';
 import axios from 'axios';
 import { DetailProduct } from '../interface/productDetail.ts';
 import Calendary from '../components/calendario.tsx';
-
+import { Star } from '../../Wishlist/components/star-componente.tsx';
+import { imagen } from '../assets/Imagen.tsx';
 
 export const ActivitiesLayaout = () => {
 
@@ -67,9 +68,9 @@ export const ActivitiesLayaout = () => {
                             <p className='text-sm text-gray-500 justify-end items-end'>Desde</p>
                             <div className='text-4xl font-bold text-red-600'> {product?.data?.price?.value} {product?.data?.price?.currency}</div>
                         </div>
-                        <Link to={'/'}>
+                        <a href={'#calendario'}>
                             <div className='text-white bg-red-600 rounded-full hover:bg-red-900 flex justify-center items-center'><p className='text-xm'>Ver disponibilidad</p></div>
-                        </Link>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -133,13 +134,13 @@ export const ActivitiesLayaout = () => {
                             {/* <Details />  */}
                         </section>
 
-                        {/* Informacion de cancelaciones */}
-                        <section id='cancelaciones'>
+                        {/* Informacion de cancelaciones comentado por que freetours no devuelve la politica de cancelacion */}
+                        {/* <section id='cancelaciones'>
                             <div className='pl-12 gap-2'>
                                 <p className='text-3xl font-normal text-gray-900 pb-2'>Cancelacion</p>
                                 <p className='text-xl font-normal text-gray-700'> Aqui informacion de prueba</p>
                             </div>
-                        </section>
+                        </section> */}
                     </div>
 
                     {/* Calendary */}
@@ -168,7 +169,24 @@ export const ActivitiesLayaout = () => {
                 </div>
 
                 {/* Button Opinions */}
-                <UbicationImages />
+                <div className='p-4 pt-2 gap-2 w-full flex flex-row'>
+                    <div className='w-4/5'>
+                        <p className='pl-12 text-3xl text-gray-800'>Opiniones de nuestros clientes</p>
+                        <div className='pl-12 pt-4 gap-2 flex flex-row'>
+                            <img src={ubication} className='w-6' />
+                            <p className='text-gray-600'>Informacion de ubicacion</p>
+                        </div>
+                    </div>
+
+                    <div className=' flex items-center justify-center'>
+                        <div className='gap-2'>
+                            <div className='gap-2 flex flex-row'>
+                                <p className='font-bold text-red-600 text-2xl items-center'>Comentarios {product?.data.reviewsNumber}</p>
+                                <p className='flex items-end'><Star number={product?.data.rating ? product?.data.rating : 0} /></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
                 {/* Comentarios */}
@@ -178,6 +196,9 @@ export const ActivitiesLayaout = () => {
                 ))} */}
             </section>
             <ClientFooter/>
+            <section>
+                
+            </section>
         </section>
     )
 }

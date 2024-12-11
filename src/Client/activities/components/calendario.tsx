@@ -44,7 +44,7 @@ const Calendary = ({data,status}:Disponibilidad) => {
   const startDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
   console.log(data[0].date)
   return (
-    <div className='w-96   p-1 flex flex-col rounded-xl items-center'>
+    <div id="calendario" className='w-96   p-1 flex flex-col rounded-xl items-center'>
       {/**Meses */}
       <div className="w-full  mx-auto bg-white rounded-lg shadow-md p-4">
       <div className="flex justify-between items-center mb-4">
