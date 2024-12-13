@@ -1,5 +1,27 @@
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
+import useSWR from 'swr'
+import { ClienteAxios } from '../../config/ClienteAxios'
 export const LayoutPanel = () => {
+    const navigate = useNavigate()
+    const {error,isLoading} = useSWR('/api/auth/autenticate',()=>
+    ClienteAxios.get('/api/auth/autenticate',{
+        headers:{
+            Authorization:`Bearer ${localStorage.getItem('token')}`
+        }
+    }))
+
+    if(isLoading)
+    {
+        return (
+            <section className='w-full h-screen bg-slate-800 text-white flex justify-center items-center'>
+                <h1 className='animate-pulse'>Validando informacion...</h1>
+            </section>
+        )
+    }
+    if(error)
+    {
+        navigate('/')
+    }
   return (
     <section className="w-full flex flex-row h-screen overflow-hidden bg-slate-300">
         {/* aside */}
