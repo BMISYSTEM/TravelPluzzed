@@ -10,11 +10,9 @@ import UbicationImages from '../components/UbicationsImages.tsx';
 import axios from 'axios';
 import { DetailProduct } from '../interface/productDetail.ts';
 import Calendary from '../components/calendario.tsx';
-<<<<<<< HEAD
-=======
 import { Star } from '../../Wishlist/components/star-componente.tsx';
 import { imagen } from '../assets/Imagen.tsx';
->>>>>>> bfb39b6fb620cfdb52a7d3fc3752ede6f7190122
+
 
 export const ActivitiesLayaout = () => {
 
