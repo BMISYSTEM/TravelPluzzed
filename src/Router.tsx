@@ -10,6 +10,8 @@ import { AdquiridosLayout } from "./Pannel/Adquiridos/AdquiridosLayout";
 import { NosotrosLayout } from "./Pannel/Nosotros/NosotrosLayout";
 import { ComentariosLayout } from "./Pannel/comentarios/ComentariosLayout";
 import ApisLayout from "./Pannel/Apis/ApisLayout";
+import { ShopLayout } from "./Client/Shop/views/ShopLayout";
+import { LoginLayout } from "./Client/Login/views/LoginLayout";
 
 
 const router = createBrowserRouter(
@@ -17,6 +19,14 @@ const router = createBrowserRouter(
         {
             path:'/',
             element: <HomeLayaut />,
+        },
+        {
+            path:'/shop',
+            element: <ShopLayout />,
+        },
+        {
+            path:'/login',
+            element: <LoginLayout />,
         },
         {
             path:'country/:uuid',

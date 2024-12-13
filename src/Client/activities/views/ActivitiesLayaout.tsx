@@ -6,12 +6,10 @@ import information from '../assets/information.svg';
 import ShareButton from '../components/shareButton..tsx';
 import ubication from '../assets/ubication.svg';
 import { ClientFooter } from '../../Footer/ClientFooter';
-import Comentarios from '../components/comentarios.tsx';
 import UbicationImages from '../components/UbicationsImages.tsx';
 import axios from 'axios';
 import { DetailProduct } from '../interface/productDetail.ts';
 import Calendary from '../components/calendario.tsx';
-
 
 export const ActivitiesLayaout = () => {
 

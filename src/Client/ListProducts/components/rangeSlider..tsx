@@ -37,8 +37,6 @@ const RangeSlider = ({ opcion }: RangeProps) => {
     };
 
     
-    const percentLeft = (leftValue / 24) * 100;
-    const percentRight = (rightValue / 24) * 100;
 
     return (
         <div className="p-2">
