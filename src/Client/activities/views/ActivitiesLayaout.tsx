@@ -12,6 +12,7 @@ import { DetailProduct } from '../interface/productDetail.ts';
 import Calendary from '../components/calendario.tsx';
 import { Star } from '../../Wishlist/components/star-componente.tsx';
 import { imagen } from '../assets/Imagen.tsx';
+import { ClienteAxios } from '../../../config/ClienteAxios.ts';
 
 
 export const ActivitiesLayaout = () => {
@@ -30,8 +31,8 @@ export const ActivitiesLayaout = () => {
         const consulta = async () => {
           try {
             setloading(true);
-            const { data } = await axios.get(
-              `https://apitravelnode.vercel.app/api/freetours/tour/${id}`
+            const { data } = await ClienteAxios.get(
+              `/api/freetours/tour/${id}`
             );
             setloading(false);
             setProducts(data);
