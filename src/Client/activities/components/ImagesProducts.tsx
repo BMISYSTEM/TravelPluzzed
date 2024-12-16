@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+
 import { Image } from '../interface/productDetail';
 import { useState } from 'react';
 interface imagenes{

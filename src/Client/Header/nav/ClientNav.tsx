@@ -1,18 +1,12 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import { Link } from "react-router-dom";
 // imagenes
 import logo from  '../../../assets/LOGOS_TRAVEL_PUZZEL_2024-02-250x84.png'
 
 
 export const ClientNav = () => {
-  const navigate = useNavigate()
 
 
-  const login = (e: React.FormEvent<HTMLFormElement>) =>{
-    e.preventDefault()
-    navigate('/panel')
-  }
   return (
    <>
     <nav className="h-14 bg-white flex flex-row justify-between ">
@@ -21,7 +15,7 @@ export const ClientNav = () => {
         <img src={logo} alt="" className="object-contain h-14"/>
       </Link>
       {/* opciones */}
-      <div className="w-full h-14  flex flex-row gap-2 items-center justify-end mx-5">
+      <div className="w-full h-14  flex flex-row md:gap-2 gap-1 items-center justify-end mx-5 md:text-lg text-xs">
         <Link to={'/login'} className="p-2 text text-blue-950 font-semibold hover:text-red-500 transition-all ">
           <p>Mi cuenta</p>
         </Link>

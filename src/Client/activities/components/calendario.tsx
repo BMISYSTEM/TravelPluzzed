@@ -2,7 +2,7 @@ import { useState } from "react";
 import {  Disponibilidad } from "../interface/productDetail";
 
 
-const Calendary = ({data,status}:Disponibilidad) => {
+const Calendary = ({data}:Disponibilidad) => {
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
@@ -15,7 +15,6 @@ const Calendary = ({data,status}:Disponibilidad) => {
 
   // Función para obtener el número de días en el mes actual
   const getDaysInMonth = (date: Date): Date[] => {
-    const startOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
     const endOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     const days: Date[] = [];
     // Generamos todos los días del mes

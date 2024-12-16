@@ -6,12 +6,9 @@ import information from '../assets/information.svg';
 import ShareButton from '../components/shareButton..tsx';
 import ubication from '../assets/ubication.svg';
 import { ClientFooter } from '../../Footer/ClientFooter';
-import UbicationImages from '../components/UbicationsImages.tsx';
-import axios from 'axios';
 import { DetailProduct } from '../interface/productDetail.ts';
 import Calendary from '../components/calendario.tsx';
 import { Star } from '../../Wishlist/components/star-componente.tsx';
-import { imagen } from '../assets/Imagen.tsx';
 import { ClienteAxios } from '../../../config/ClienteAxios.ts';
 
 

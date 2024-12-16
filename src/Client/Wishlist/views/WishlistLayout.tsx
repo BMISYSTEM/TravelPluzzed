@@ -10,7 +10,7 @@ export const WishlistLayout = () => {
       <h1 className="text-4xl font-sans text-gray-600">¿Sigues interesado?</h1>
     </div>
 
-  <div className='flex flex-wrap gap-x-6 gap-y-16 pt-10'>
+  <div className='flex flex-wrap gap-x-6 gap-y-16 pt-10 justify-center'>
 
   <TargetSugerence
    IMGcarta={Bogota}

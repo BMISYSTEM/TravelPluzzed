@@ -30,10 +30,11 @@ export const NosotrosLayout = () => {
       const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
           const { id } = e.target;
-          if (id === "mainImage") {
+          if (id === "mainImage" && e.target.files[0] !== null) {
+            const file = e.target.files[0]
             setFormData((prevData) => ({
               ...prevData,
-              mainImage: URL.createObjectURL(e.target.files[0]),
+              mainImage: URL.createObjectURL(file),
             }));
           } else if (id === "additionalImages") {
             const files = Array.from(e.target.files);

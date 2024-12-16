@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import arrow from '../assets/arrow.svg'; // Asegúrate de que la ruta de la imagen sea correcta
 
 interface CaracteProps {

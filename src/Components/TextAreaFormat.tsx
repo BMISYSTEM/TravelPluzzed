@@ -1,19 +1,15 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface props {
+  text:string;
   setText:React.Dispatch<React.SetStateAction<string>>;
 }
-const TextAreaFormat = ({setText}:props) => {
+const TextAreaFormat = ({setText,text}:props) => {
   const editorRef = useRef<HTMLDivElement>(null);
-
+  const [contenido,setContenido] = useState(text)
 
   const applyStyle = (style: string, value?: string) => {
     document.execCommand(style, false, value);
-    updateEditorContent();
-  };
-
-  const addList = () => {
-    document.execCommand("insertUnorderedList");
     updateEditorContent();
   };
 
@@ -26,6 +22,7 @@ const TextAreaFormat = ({setText}:props) => {
   const updateEditorContent = () => {
     if (editorRef.current) {
       setText(editorRef.current.innerHTML);  // Obtiene el HTML del contenido del editor
+      setContenido(editorRef.current.innerHTML)
     }
   };
   return (
@@ -91,31 +88,25 @@ const TextAreaFormat = ({setText}:props) => {
         >
           Alinear Derecha
         </button>
-        {/* Lista */}
-        <button
-          type="button"
-          onClick={addList}
-          className="p-2 bg-gray-200 hover:bg-gray-300 rounded"
-        >
-          Lista
-        </button>
       </div>
       {/* Editor de texto */}
       <div
         ref={editorRef}
         contentEditable
+        onBlur={()=>updateEditorContent()}
         className="w-full text-black h-64 p-4 border border-gray-300 bg-white rounded focus:outline-none focus:ring focus:ring-blue-200 overflow-auto"
+        dangerouslySetInnerHTML={{ __html: contenido }} 
       >
-        Escribe algo aquí...
       </div>
 
-      {/* <div className="mt-4">
+      <div className="mt-4">
         <h3 className="text-xl font-semibold">Contenido Renderizado</h3>
         <div
-          className="border border-gray-300 p-4 mt-2 bg-gray-100 rounded"
-          dangerouslySetInnerHTML={{ __html: editorContent }}  // Renderiza el contenido capturado
+          className="border border-gray-300 p-4 mt-2 rounded bg-amber-50 text-black"
+          
+          dangerouslySetInnerHTML={{ __html: contenido }}  // Renderiza el contenido capturado
         />
-      </div> */}
+      </div>
     </div>
   );
 };

@@ -29,13 +29,13 @@ export const BannerLayout = () => {
         height:'85vh'
     }}>
         <div className='  absolute w-full h-full  flex flex-col gap-3 justify-center items-center p-3'>
-            <div className='relative w-1/2 h-full flex flex-col gap-3  p-3 justify-end '>
+            <div className='relative md:w-1/2 w-full h-full flex flex-col gap-3  p-3 justify-end '>
                 <h1 className='text-2xl font-sans text-white'>Llena tu viaje</h1>
                 <h2 className='text-4xl font-sans text-white'>Visitas guiadas y excursiones en español por todo el mundo</h2>
                 <form action="">
-                    <input type="text" ref={buscadorRef} placeholder='Busca tu destino con nosotros' className='p-3 rounded-xl w-[40rem]' onClick={()=>setIslandSheart(true)} />
+                    <input type="text" ref={buscadorRef} placeholder='Busca tu destino con nosotros' className='p-3 rounded-xl md:w-[40rem] w-full' onClick={()=>setIslandSheart(true)} />
                     {islandSheart ? 
-                        <section className='absolute ml-[-11rem] w-[60rem] overflow-auto z-50 h-auto bg-white rounded-xl mt-2 shadow-2xl flex flex-col p-2 animate__animated animate__fadeIn'>
+                        <section className='absolute md:ml-[-11rem] md:w-[60rem] w-full overflow-auto z-50 h-auto bg-white rounded-xl mt-2 shadow-2xl flex flex-col p-2 animate__animated animate__fadeIn'>
                             <div className='w-full flex items-end justify-end'>
                                 <button onClick={()=>setIslandSheart(false)}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
@@ -59,7 +59,7 @@ export const BannerLayout = () => {
                     : null}
                 </form>
             </div>
-            <div className='flex flex-row gap-6 items-end h-2/4 justify-end '>
+            <div className='flex flex-row md:gap-6 items-end h-2/4 justify-end  '>
                 <TextBannerEnd icon={check} text='Las mejores actividades'/>
                 <TextBannerEnd icon={person} text='Atención al cliente 24/7'/>
                 <TextBannerEnd icon={options} text='Miles de opiniones'/>
@@ -69,7 +69,7 @@ export const BannerLayout = () => {
         <div className='w-full overflow-hidden' style={{
         height:'85vh'
         }}>
-            <img src={banner} alt="" className='w-full h-full object-fill'/>
+            <img src={banner} alt="" className='w-full h-full md:object-fill object-cover'/>
         </div>
     </section>
   )

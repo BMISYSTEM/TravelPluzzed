@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import  { ChangeEvent, useState } from 'react'
 
 export const BlogsLayout = () => {
     const [imagePreviews, setImagePreviews] = useState<string[]>([]);

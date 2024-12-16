@@ -1,6 +1,7 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import useSWR from 'swr'
 import { ClienteAxios } from '../../config/ClienteAxios'
+import { ToastContainer } from 'react-toastify'
 export const LayoutPanel = () => {
     const navigate = useNavigate()
     const {error,isLoading} = useSWR('/api/auth/autenticate',()=>
@@ -37,6 +38,14 @@ export const LayoutPanel = () => {
                     className="block py-2.5 px-4 rounded hover:bg-gray-700 hover:text-white transition"
                     >
                     Destinos
+                    </Link>
+                </li>
+                <li>
+                    <Link
+                    to="/panel/pais"
+                    className="block py-2.5 px-4 rounded hover:bg-gray-700 hover:text-white transition"
+                    >
+                    Paises
                     </Link>
                 </li>
                 <li>
@@ -96,6 +105,7 @@ export const LayoutPanel = () => {
         <main className='w-full h-full bg-slate-800 overflow-auto'>
             <Outlet/>
         </main>
+        <ToastContainer/>
     </section>
   )
 }

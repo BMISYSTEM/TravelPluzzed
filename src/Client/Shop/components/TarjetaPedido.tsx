@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { ItemsConfig } from './ItemsConfig'
 // imagenes
 import bogota from '../assets/Bogotá.webp'

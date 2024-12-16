@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState } from 'react';
 import './rangeSlider.css';
 import arrow from '../assets/arrow.svg'; // Asegúrate de que la ruta de la imagen sea correcta
 
@@ -8,29 +8,30 @@ interface RangeProps {
 }
 
 const RangeSlider = ({ opcion }: RangeProps) => {
-    const [leftValue, setLeftValue] = useState(1);
-    const [rightValue, setRightValue] = useState(1);
+    const [leftValue] = useState(1);
+    const [rightValue] = useState(1);
     const [isOpen, setIsOpen] = useState(true);
-    const [porcentRig,setporcentRig] = useState(50);
-    const [porcentlef,setporcentlef] = useState(50);
+    /* const [porcentRig,setporcentRig] = useState(50);
+    const [porcentlef,setporcentlef] = useState(50); */
 
     let wr = 100
     let wl = 100
-
-    const handleLeftChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+   /*  console.log(porcentRig)
+    console.log(porcentlef) */
+    /* const handleLeftChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(e.target.value);
         if (value < rightValue && value >=1) {
             setporcentlef(value);
 
         }
-    };
+    }; */
 
-    const handleRightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  /*   const handleRightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(e.target.value);
         if (value > leftValue && value >= 1) {
             setporcentRig(value);
         }
-    };
+    }; */
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
