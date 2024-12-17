@@ -13,6 +13,7 @@ import ApisLayout from "./Pannel/Apis/ApisLayout";
 import { ShopLayout } from "./Client/Shop/views/ShopLayout";
 import { LoginLayout } from "./Client/Login/views/LoginLayout";
 import { PaisLayout } from "./Pannel/Pais/PaisLayout";
+import { CiudadesLayout } from "./Pannel/Ciudades/CiudadesLayout";
 
 
 const router = createBrowserRouter(
@@ -48,6 +49,10 @@ const router = createBrowserRouter(
                 {
                     path:'/panel/pais',
                     element:<PaisLayout/>
+                },
+                {
+                    path:'/panel/ciudades',
+                    element:<CiudadesLayout/>
                 },
                 {
                     path:'/panel/blogs',

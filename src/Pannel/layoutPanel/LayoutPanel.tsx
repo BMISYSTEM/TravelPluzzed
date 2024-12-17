@@ -50,6 +50,14 @@ export const LayoutPanel = () => {
                 </li>
                 <li>
                     <Link
+                    to="/panel/ciudades"
+                    className="block py-2.5 px-4 rounded hover:bg-gray-700 hover:text-white transition"
+                    >
+                    Ciudades
+                    </Link>
+                </li>
+                {/* <li>
+                    <Link
                     to="/panel/blogs"
                     className="block py-2.5 px-4 rounded hover:bg-gray-700 hover:text-white transition"
                     >
@@ -63,7 +71,7 @@ export const LayoutPanel = () => {
                     >
                     Fotos
                     </Link>
-                </li>
+                </li> */}
                 <li>
                     <Link
                     to="/panel/pedidos"
@@ -72,14 +80,14 @@ export const LayoutPanel = () => {
                     Pedidos
                     </Link>
                 </li>
-                <li>
+                {/* <li>
                     <Link
                     to="/panel/nosotros"
                     className="block py-2.5 px-4 rounded hover:bg-gray-700 hover:text-white transition"
                     >
                     Nosotros
                     </Link>
-                </li>
+                </li> */}
                 <li>
                     <Link
                     to="/panel/opiniones"
@@ -88,14 +96,14 @@ export const LayoutPanel = () => {
                     Opiniones
                     </Link>
                 </li>
-                <li>
+               {/*  <li>
                     <Link
                     to="/panel/apis"
                     className="block py-2.5 px-4 rounded hover:bg-gray-700 hover:text-white transition"
                     >
                     APIs
                     </Link>
-                </li>
+                </li> */}
                 </ul>
             </nav>
             <div className="p-4 bg-gray-900 text-center">

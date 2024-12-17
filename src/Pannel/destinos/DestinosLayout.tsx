@@ -259,13 +259,8 @@ export const DestinosLayout = () => {
                 <th className=" py1 px-2">H-individual</th>
                 <th className=" py1 px-2">H-doble</th>
                 <th className=" py1 px-2">H-triple</th>
-                <th className=" py1 px-2">Intinerario</th>
                 <th className=" py1 px-2">Duracion</th>
-                <th className=" py1 px-2">Incluye</th>
-                <th className=" py1 px-2">No_incluye</th>
-                <th className=" py1 px-2">Accesibilidad</th>
                 <th className=" py1 px-2">Mascotas</th>
-                <th className=" py1 px-2">Salidas</th>
                 <th className=" py1 px-2">Punto_encuentro</th>
                 <th className=" py1 px-2">Reembolsable</th>
                 <th className=" py1 px-2">Pais</th>
@@ -282,28 +277,13 @@ export const DestinosLayout = () => {
                   <td className=" py1 px-2 ">{tours.habitacion_individual ? 'Si' : 'No'}</td>
                   <td className=" py1 px-2 ">{tours.habitacion_doble ? 'Si' : 'No'}</td>
                   <td className=" py1 px-2 ">{tours.habitacion_triple ? 'Si' : 'No'}</td>
-                  <td className=" py1 px-2 ">
-                    <div dangerouslySetInnerHTML={{ __html: tours.intinerario }} >
-                    </div>
-                  </td>
+
                   <td className=" py1 px-2 ">{tours.duracion}</td>
-                  <td className=" py1 px-2 ">
-                    <div dangerouslySetInnerHTML={{ __html: tours.incluye }} >
-                    </div>
-                  </td>
-                  <td className=" py1 px-2 ">
-                    <div dangerouslySetInnerHTML={{ __html: tours.no_incluye }} >
-                    </div>
-                  </td>
-                  <td className=" py1 px-2 ">
-                    <div dangerouslySetInnerHTML={{ __html: tours.accesibilidad }} >
-                    </div>
-                  </td>
+   
+            
+              
                   <td className=" py1 px-2 ">{tours.mascotas ? 'Si' : 'No'}</td>
-                  <td className=" py1 px-2 ">
-                    <div dangerouslySetInnerHTML={{ __html: tours.salidas }} >
-                    </div>
-                  </td>
+                
                   <td className=" py1 px-2 ">{tours.punto_encuentro}</td>
                   <td className=" py1 px-2 ">{tours.reembolsable ? 'Si' : 'no'}</td>
                   <td className=" py1 px-2 ">{tours.pais}</td>
@@ -452,20 +432,14 @@ export const DestinosLayout = () => {
               />
             </div>
             <div className="mb-4">
-              <InputText
-                nombre="Pais"
-                setValue={setPais}
-                valueInput={pais}
-                type="text"
-              />
+            <select name="" id="" className="w-full py-2 bg-slate-800 border border-blue-300 rounded-lg">
+                <option value="">Seleccione un pais</option>
+              </select>
             </div>
             <div className="mb-4">
-              <InputText
-                nombre="Ciudad"
-                setValue={setCiudad}
-                valueInput={ciudad}
-                type="text"
-              />
+              <select name="" id="" className="w-full py-2 bg-slate-800 border border-blue-300 rounded-lg">
+                <option value="">Seleccione una ciudad</option>
+              </select>
             </div>
             <div className="flex flex-row  items-center  justify-center gap-5 border p-2">
               <label className="block text-gray-300 " htmlFor="destination">
