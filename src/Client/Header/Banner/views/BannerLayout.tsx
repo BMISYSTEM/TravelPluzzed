@@ -10,6 +10,10 @@ import 'animate.css'
 import { Countrys } from '../interface/ConfigInterface';
 import { useLocations } from '../hooks/useLocations'
 import { LinkBuscador } from '../components/LinkBuscador'
+import useSWR from 'swr'
+import { ClienteAxios } from '../../../../config/ClienteAxios'
+import { Pais } from '../interface/PaisInterface'
+import { Ciudades } from '../interface/CiudadInterface'
 
 
 export const BannerLayout = () => {
@@ -22,8 +26,15 @@ export const BannerLayout = () => {
     useEffect(()=>{
         Config(setLocations)
     },[])
-    // console.log(locations?.data)
-    const location = locations?.data
+
+
+    const {data:allpais,isLoading:paisLoading} = useSWR('/api/pais/index',()=>
+    ClienteAxios.get('/api/pais/index'))
+    const pais: Pais = allpais?.data
+    const {data:allCiudad,isLoading:ciudadLoading} = useSWR('/api/ciudades/index',()=>
+    ClienteAxios.get('/api/ciudades/index'))
+    const ciudad:Ciudades = allCiudad?.data
+    const ciudadDetail = ciudad?.succes
   return (
     <section className=" relative w-full h-full    " style={{
         height:'85vh'
@@ -45,11 +56,9 @@ export const BannerLayout = () => {
                             </div>
                             <p className='text-2xl font-bold text-rose-600 text-center'>Top destinos</p>
                             <div className='w-full flex flex-wrap p-3 gap-x-20 gap-y-10 justify-center h-96 ' >
-                                {location ? 
-                                    location.map((Locations,index)=>(
-                                        // Locations.map((current,index)=>(
-                                            <LinkBuscador  key={index} textPrimary={Locations?.title?.es} textSecond={'ciudad'} id={Locations?.id}/>
-                                        // ))
+                                {pais?.succes ? 
+                                    pais?.succes?.map((pais,index)=>(
+                                        <LinkBuscador  key={index} textPrimary={pais?.nombre} textSecond={ciudadDetail?.filter(data => data.id === pais.id)} id={pais?.id}/>
                                     ))
                                     :
                                     null

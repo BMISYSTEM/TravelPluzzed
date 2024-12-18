@@ -14,6 +14,7 @@ import { ShopLayout } from "./Client/Shop/views/ShopLayout";
 import { LoginLayout } from "./Client/Login/views/LoginLayout";
 import { PaisLayout } from "./Pannel/Pais/PaisLayout";
 import { CiudadesLayout } from "./Pannel/Ciudades/CiudadesLayout";
+import { PaisLayoutClient } from "./Client/Pais/PaisLayoutClient";
 
 
 const router = createBrowserRouter(
@@ -29,6 +30,10 @@ const router = createBrowserRouter(
         {
             path:'/login',
             element: <LoginLayout />,
+        },
+        {
+            path:'pais/:id',
+            element: <PaisLayoutClient />,
         },
         {
             path:'country/:uuid',

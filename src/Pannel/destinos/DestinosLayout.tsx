@@ -305,6 +305,13 @@ export const DestinosLayout = () => {
                       className="py-2 px-3 rounded-sm bg-sky-500 hover:bg-sky-800">
                         Imagenes
                       </button>
+                      <button onClick={()=>{
+                        setModalImagen(true)
+                        setTourIdImagen(tours.id)
+                      }} 
+                      className="py-2 px-3 rounded-sm bg-indigo-500 hover:bg-indigo-800">
+                        Disponibilidad
+                      </button>
                     </div>
                   </td>
                 </tr>
