@@ -96,6 +96,14 @@ export const LayoutPanel = () => {
                     Opiniones
                     </Link>
                 </li>
+                <li>
+                    <Link
+                    to="/panel/usuarios"
+                    className="block py-2.5 px-4 rounded hover:bg-gray-700 hover:text-white transition"
+                    >
+                    Usuarios
+                    </Link>
+                </li>
                {/*  <li>
                     <Link
                     to="/panel/apis"

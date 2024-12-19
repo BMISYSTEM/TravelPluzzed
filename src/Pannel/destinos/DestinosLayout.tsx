@@ -11,8 +11,34 @@ import { useNavigate } from "react-router-dom";
 import ReactModal from "react-modal";
 import { ModalImagenes } from "./components/ModalImagenes";
 
+export interface Pais {
+  succes: Succes[];
+}
+
+export interface Succes {
+  id:        number;
+  nombre:    string;
+  prefijo:   number;
+  imagen:    string;
+  destacado: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface Ciudades {
+  succes: Succeciudad[];
+}
+
+export interface Succeciudad {
+  id:        number;
+  nombre:    string;
+  pais:      number;
+  destacado: number;
+  imagen:    string;
+  createdAt: Date;
+  updatedAt: Date;
+}
 export const DestinosLayout = () => {
-  const navigate = useNavigate()
   const [pantalla, setpantalla] = useState(1);
   // inputs de tour
   const [nombre, setNombre] = useState("");
@@ -22,6 +48,7 @@ export const DestinosLayout = () => {
   const [habitacion_doble, setHabitacionDoble] = useState(false);
   const [habitacion_triple, setHabitacionTriple] = useState(false);
   const [intinerario, setIntinerario] = useState("");
+  const [descripcion, setdescripcion] = useState("");
   const [duracion, setDuracion] = useState("");
   const [incluye, setIncluye] = useState("");
   const [no_incluye, setNoIncluye] = useState("");
@@ -30,7 +57,7 @@ export const DestinosLayout = () => {
   const [salidas, setSalidas] = useState("");
   const [punto_encuentro, setPuntoDeEncuentro] = useState("");
   const [reembolsable, setReembolsable] = useState(false);
-  const [pais, setPais] = useState("");
+  const [pais, setPais] = useState(0);
   const [ciudad, setCiudad] = useState("");
   // Estado para manejar los archivos seleccionados
   const [fotos, setFotos] = useState<File[]>([]);
@@ -75,8 +102,8 @@ export const DestinosLayout = () => {
       reembolsable: reembolsable ? '1' : '0',
       pais,
       ciudad,
-      id:idEdit
-
+      id:idEdit,
+      descripcion
     };
     
     // Crear el FormData
@@ -96,8 +123,9 @@ export const DestinosLayout = () => {
     formData.append("salidas", salidas);
     formData.append("punto_encuentro", punto_encuentro);
     formData.append("reembolsable", reembolsable ? '1' : '0');
-    formData.append("pais", pais);
+    formData.append("pais", pais.toString());
     formData.append("ciudad", ciudad);
+    formData.append("descripcion", descripcion);
 
    
     try {
@@ -122,6 +150,7 @@ export const DestinosLayout = () => {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
              // Este encabezado es importante para FormData
           },
+
         });
         console.log(data)
         setNombre("")
@@ -139,9 +168,10 @@ export const DestinosLayout = () => {
         setSalidas("")
         setPuntoDeEncuentro("")
         setReembolsable(false)
-        setPais("")
+        setPais(0)
         setCiudad("")
         setIdEdit(0)
+        setdescripcion("")
       }
       toast.success('Proceso finalizado...')
       mutate()
@@ -198,12 +228,14 @@ export const DestinosLayout = () => {
   
   }
 
-
-
   const {data,isLoading,mutate} = useSWR('/api/tour/index',()=>
   ClienteAxios.get('/api/tour/index'))
-
-  if(isLoading)
+    // consultar el listado de pais y de ciudad
+    const {data:paisData,isLoading:paisLoading} = useSWR('/api/pais/index',()=>
+      ClienteAxios.get('/api/pais/index'))
+    const {data:ciudadData,isLoading:ciudadLoading} = useSWR('/api/ciudades/index',()=>
+      ClienteAxios.get('/api/ciudades/index'))
+  if(isLoading || paisLoading || ciudadLoading)
   {
     return (
       <div className="text-2xl flex flex-row items-center justify-center bg-slate-800 text-slate-300">
@@ -211,8 +243,18 @@ export const DestinosLayout = () => {
       </div>
     )
   }
+
+  const paises:Pais = paisData?.data
+
+  const ciudades:Ciudades = ciudadData?.data
+  let ciudadFilt = ciudades.succes
   const tour:Tours = data?.data;
 
+  if(pais)
+  {
+    ciudadFilt = ciudadFilt.filter((ciudad) => Number(ciudad.pais) === pais)
+    console.log(pais)
+  }
   const editTour = (data:Succe) =>{
     toast.success('Editando Tour')
     setpantalla(3)
@@ -232,11 +274,14 @@ export const DestinosLayout = () => {
     setSalidas(data.salidas)
     setPuntoDeEncuentro(data.punto_encuentro)
     setReembolsable(data.reembolsable ? true : false)
-    setPais(data.pais)
+    setPais(Number(data.pais))
     setCiudad(data.ciudad)
     setIdEdit(data.id)
     toast.success('Informacion cargada con exito')
   }
+
+
+ 
   return (
     <div className=" mx-auto bg-gray-800 text-white  rounded-lg shadow-lg p-2">
       <button
@@ -332,7 +377,10 @@ export const DestinosLayout = () => {
                 setValue={setNombre}
               />
             </div>
-
+            <div className="mb-4 mt-5">
+              <p>Descripcion</p>
+              <TextAreaFormat text={descripcion} setText={setdescripcion} />
+            </div>
             <div className="mb-4 w-1/3">
               <InputNumber
                 nombre="Precio"
@@ -439,13 +487,19 @@ export const DestinosLayout = () => {
               />
             </div>
             <div className="mb-4">
-            <select name="" id="" className="w-full py-2 bg-slate-800 border border-blue-300 rounded-lg">
-                <option value="">Seleccione un pais</option>
+              <select name="" id="" onChange={(e)=>setPais(Number(e.target.value))} className="w-full py-2 bg-slate-800 border border-blue-300 rounded-lg">
+                <option value="" selected>Seleccione un pais</option>
+                {paises.succes.map((pais,index)=>(
+                  <option key={index} value={pais.id} >{pais.nombre}</option>
+                ))}
               </select>
             </div>
             <div className="mb-4">
-              <select name="" id="" className="w-full py-2 bg-slate-800 border border-blue-300 rounded-lg">
+              <select name="" id="" onChange={(e)=>setCiudad(e.target.value)}  className="w-full py-2 bg-slate-800 border border-blue-300 rounded-lg">
                 <option value="">Seleccione una ciudad</option>
+                {ciudadFilt.map((ciudad,index)=>(
+                  <option value={ciudad.id} key={index} >{ciudad.nombre}</option>
+                ))}
               </select>
             </div>
             <div className="flex flex-row  items-center  justify-center gap-5 border p-2">
@@ -533,7 +587,10 @@ export const DestinosLayout = () => {
                 setValue={setNombre}
               />
             </div>
-
+            <div className="mb-4 mt-5">
+              <p>Descripcion</p>
+              <TextAreaFormat text={descripcion} setText={setdescripcion} />
+            </div>
             <div className="mb-4 w-1/3">
               <InputNumber
                 nombre="Precio"
@@ -640,20 +697,20 @@ export const DestinosLayout = () => {
               />
             </div>
             <div className="mb-4">
-              <InputText
-                nombre="Pais"
-                setValue={setPais}
-                valueInput={pais}
-                type="text"
-              />
+              <select name="" id="" onChange={(e)=>setPais(Number(e.target.value))} className="w-full py-2 bg-slate-800 border border-blue-300 rounded-lg">
+                <option value="" >Seleccione un pais</option>
+                {paises.succes.map((paises,index)=>(
+                  <option key={index} value={paises.id} selected={paises.id === pais} >{paises.nombre}</option>
+                ))}
+              </select>
             </div>
             <div className="mb-4">
-              <InputText
-                nombre="Ciudad"
-                setValue={setCiudad}
-                valueInput={ciudad}
-                type="text"
-              />
+              <select name="" id="" onChange={(e)=>setCiudad(e.target.value)}  className="w-full py-2 bg-slate-800 border border-blue-300 rounded-lg">
+                <option value="">Seleccione una ciudad</option>
+                {ciudadFilt.map((ciudades,index)=>(
+                  <option value={ciudades.id} key={index} selected={ciudades.id === Number(ciudad)} >{ciudades.nombre}</option>
+                ))}
+              </select>
             </div>
             <div className="flex flex-row  items-center  justify-center gap-5 border p-2">
               <label className="block text-gray-300 " htmlFor="destination">

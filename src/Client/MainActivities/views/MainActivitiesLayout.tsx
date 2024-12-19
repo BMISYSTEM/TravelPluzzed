@@ -55,7 +55,7 @@ export const MainActivitiesLayout = () => {
           <p className="text-xl text-slate-500 animate-pulse">Cargando informacion...</p>
         :
         destacados?.map((pais, index) => (
-            <Link className="" to={`/activity/local/${pais.id}`} key={index}>
+            <Link className="" to={`/pais/${pais.id}`} key={index}>
               <TargetPrincipal
                 IMGcarta={`${import.meta.env.VITE_URL_BACK}/${pais.imagen}`}
                 nombre={pais.nombre}

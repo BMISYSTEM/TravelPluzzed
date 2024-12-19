@@ -13,7 +13,7 @@ export const LinkBuscador = ({ textPrimary, textSecond ,id}: props) => {
       <Link to={`/pais/${id}`} className="text-xl font-bold text-black">{textPrimary}</Link>
       {textSecond ? 
          textSecond.map((ciudades,index)=>(
-           <Link key={index} to={`/ciudad/${ciudades.id}`} className="text-sm font-bold text-slate-400">{ciudades.nombre}</Link>
+           <Link key={index} to={`actividades/${id}/${ciudades.id}`} className="text-sm font-bold text-slate-400">{ciudades.nombre}</Link>
         ))
       : null
       }
