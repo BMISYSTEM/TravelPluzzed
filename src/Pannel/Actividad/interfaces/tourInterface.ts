@@ -1,4 +1,4 @@
-export interface Tours {
+export interface Tour {
     succes: Succe[];
 }
 
@@ -19,9 +19,9 @@ export interface Succe {
     salidas:               string;
     punto_encuentro:       string;
     reembolsable:          number;
-    pais:                  string;
-    ciudad:                string;
     createdAt:             Date;
     updatedAt:             Date;
-    descripcion:            string;
+    pais:                  string;
+    ciudad:                string;
+    descripcion:           string;
 }

@@ -277,6 +277,7 @@ export const DestinosLayout = () => {
     setPais(Number(data.pais))
     setCiudad(data.ciudad)
     setIdEdit(data.id)
+    setdescripcion(data.descripcion)
     toast.success('Informacion cargada con exito')
   }
 

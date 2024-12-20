@@ -54,7 +54,7 @@ export const PaisLayoutClient = () => {
         {/* ciudades */}
         <div className="w-full flex flex-wrap p-2 gap-4 justify-center mt-5">
           {ciudad?.succes?.map((ciudad,index)=>(
-            <Link to={`/actividades/${pais.succes.id}/${ciudad.id}`}>
+            <Link to={`/actividades/${pais?.succes?.id}/${ciudad.id}`}>
               <TargetPrincipal IMGcarta={`${import.meta.env.VITE_URL_BACK}/${ciudad.imagen}`} 
               actividades={0} opiniones={0} rating={0} viajeros={0} nombre={ciudad.nombre} key={index}/>
             </Link>

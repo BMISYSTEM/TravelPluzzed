@@ -17,6 +17,7 @@ import { CiudadesLayout } from "./Pannel/Ciudades/CiudadesLayout";
 import { PaisLayoutClient } from "./Client/Pais/PaisLayoutClient";
 import { ActividadCiudadLayout } from "./Client/ActividadesCiudad/ActividadCiudadLayout";
 import { UsuariosLayout } from "./Pannel/Usuarios/UsuariosLayout";
+import ActividadLayout from "./Pannel/Actividad/ActividadLayout";
 
 
 const router = createBrowserRouter(
@@ -40,6 +41,10 @@ const router = createBrowserRouter(
         {
             path:'actividades/:pais/:ciudad',
             element: <ActividadCiudadLayout />,
+        },
+        {
+            path:'/actividades/detalle/local/:id',
+            element: <ActividadLayout />,
         },
         {
             path:'country/:uuid',

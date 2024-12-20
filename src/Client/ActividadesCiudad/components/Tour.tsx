@@ -10,7 +10,7 @@ interface props{
 }
 export const Tour = ({id,imagen,titulo,descripcion,precio}:props) => {
     return (
-        <Link  to={`/activity/${id}`} className="hover:shadow-xl">
+        <Link  to={`/actividades/detalle/local/${id}`} className="hover:shadow-xl">
             <div
                 className="bg-white w-full h-full flex flex-row rounded-sm"
             >
