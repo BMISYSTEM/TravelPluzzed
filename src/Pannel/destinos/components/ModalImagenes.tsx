@@ -70,7 +70,7 @@ export const ModalImagenes = ({ id }: props) => {
           }
         try {
             toast.success('Guardando imagen')
-            const {data} = await ClienteAxios.post('/api/tour/saveimagen',datos,{
+            const {} = await ClienteAxios.post('/api/tour/saveimagen',datos,{
                 headers:{
                     Authorization:`Bearer ${localStorage.getItem('token')}`,
                     "Content-Type": "multipart/form-data",
@@ -96,8 +96,8 @@ export const ModalImagenes = ({ id }: props) => {
         : null}
         <div className="w-full h-full flex flex-wrap gap-2 overflow-auto">
             {allImagenes?.imagenes.map((img,index)=>(
-                <div key={index} className="flex flex-col p-2 h-40">
-                    <img src={`${import.meta.env.VITE_URL_BACK}/${img.url}`} alt="" className="w-40 h-40 object-contain" />
+                <div key={index} className="flex flex-col p-2 h-auto">
+                    <img src={`${import.meta.env.VITE_URL_BACK_IMG}${img.url}`} alt="" className="w-40 h-40 object-contain" />
                     <button onClick={()=>deleteImagen(img.id)} className="py-1 px-3 bg-red-500 rounded-xl text-white hover:bg-red-800">
                         Eliminar
                     </button>

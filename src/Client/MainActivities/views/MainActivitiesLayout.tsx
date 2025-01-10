@@ -1,39 +1,11 @@
 import { Link } from "react-router-dom";
 import { TargetPrincipal } from "../components/TargetPrincipal";
-import Bogota from "../assets/Bogotá.webp";
-import jenki from "../assets/jenki.webp";
 import panoramicajapon from "../assets/panoramica2.jpg";
 import useSWR from "swr";
 import { ClienteAxios } from "../../../config/ClienteAxios";
 import { Paises } from "../interfaces/paisInterface";
 
-interface mainActivitiesInterface {
-  citi: string;
-  activities: string;
-  traveler: string;
-  opinions: string;
-  valorate: string;
-  imagen: string;
-}
 
-const arrayActivities: mainActivitiesInterface[] = [
-  {
-    citi: "Japon",
-    activities: "1",
-    traveler: "80",
-    opinions: "500",
-    valorate: "4.5",
-    imagen: jenki,
-  },
-  {
-    citi: "colombia",
-    activities: "500",
-    traveler: "80",
-    opinions: "500",
-    valorate: "4.5",
-    imagen: Bogota,
-  },
-];
 
 export const MainActivitiesLayout = () => {
 
@@ -57,7 +29,7 @@ export const MainActivitiesLayout = () => {
         destacados?.map((pais, index) => (
             <Link className="" to={`/pais/${pais.id}`} key={index}>
               <TargetPrincipal
-                IMGcarta={`${import.meta.env.VITE_URL_BACK}/${pais.imagen}`}
+                IMGcarta={`${import.meta.env.VITE_URL_BACK_IMG}${pais.imagen}`}
                 nombre={pais.nombre}
                 actividades={Number(0)}
                 opiniones={Number(0)}

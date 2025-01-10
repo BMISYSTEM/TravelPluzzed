@@ -34,10 +34,10 @@ export interface Succeciudad {
 
 export const PaisLayoutClient = () => {
     const {id} = useParams()
-    const {data:paisData,isLoading:paisLoading} = useSWR('/api/pais/find/'+id,()=>
+    const {data:paisData} = useSWR('/api/pais/find/'+id,()=>
     ClienteAxios.get('/api/pais/find/'+id))
     const pais:Pais = paisData?.data 
-    const {data:ciudadData,isLoading:ciudadLoading} = useSWR('/api/ciudades/find/'+id,()=>
+    const {data:ciudadData} = useSWR('/api/ciudades/find/'+id,()=>
     ClienteAxios.get('/api/ciudades/find/'+id))
     const ciudad:Ciudades = ciudadData?.data
   return (
@@ -47,7 +47,7 @@ export const PaisLayoutClient = () => {
         <div className="text-6xl absolute font-bold text-white mt-[10%] mx-5">
           <p>{pais?.succes?.nombre}</p>
         </div>
-        <img src={`${import.meta.env.VITE_URL_BACK}/${pais?.succes?.imagen}`} alt="" className="w-full h-full object-cover" />
+        <img src={`${import.meta.env.VITE_URL_BACK_IMG}${pais?.succes?.imagen}`} alt="" className="w-full h-full object-cover" />
       </section>
       <section className="w-full h-full flex flex-col mt-10 text-center">
         <p className="text-3xl justify-center font-semibold text-slate-700">Ciudades de {pais?.succes?.nombre}</p>
@@ -55,7 +55,7 @@ export const PaisLayoutClient = () => {
         <div className="w-full flex flex-wrap p-2 gap-4 justify-center mt-5">
           {ciudad?.succes?.map((ciudad,index)=>(
             <Link to={`/actividades/${pais?.succes?.id}/${ciudad.id}`}>
-              <TargetPrincipal IMGcarta={`${import.meta.env.VITE_URL_BACK}/${ciudad.imagen}`} 
+              <TargetPrincipal IMGcarta={`${import.meta.env.VITE_URL_BACK_IMG}/${ciudad.imagen}`} 
               actividades={0} opiniones={0} rating={0} viajeros={0} nombre={ciudad.nombre} key={index}/>
             </Link>
           ))}

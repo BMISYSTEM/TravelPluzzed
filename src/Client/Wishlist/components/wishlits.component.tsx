@@ -8,20 +8,18 @@ interface props {
     Descripcion: string;
     rating: string;
     reviews: string;
-    Valor: string;
-
+    Valor: number;
+    id:number;
 }
 
 
-export const TargetSugerence = ({IMGcarta,Nombre,Descripcion,Valor,rating,reviews}: props ) => {
+export const TargetSugerence = ({IMGcarta,Nombre,Descripcion,Valor,rating,reviews,id}: props ) => {
     return (
 
-    <Link to={'/s'}>
-        <div className="relative w-[25rem] h-[15rem] flex justify-center items-center group">
-            <img src={IMGcarta} alt="" className="w-full h-full object-cover transition duration-500 ease-in-out transform group-hover:opacity-0" />
-            
-
-            <div className="absolute bottom-0 w-full h-1/3 bg-white bg-opacity-75 flex flex-row  justify-between items-center ">
+    <Link to={'/actividades/detalle/local/'+id}>
+        <div className="relative w-[25rem] md:h-[15rem] h-[25rem] flex justify-center items-center group">
+            <img src={IMGcarta} alt="" className="w-full md:h-[15rem]  h-[25rem] object-fill transition duration-500 ease-in-out transform group-hover:opacity-0" />
+            <div className="absolute bottom-0 w-full h-1/3 md:h-1/2 bg-white bg-opacity-75 flex flex-row  justify-between items-center ">
                 <div className='flex flex-col gap-2 w-full justify-start text-red-600 p-1 '>
                   <h1 className="text-left text-xl font-bold">{Nombre}</h1>
                   <h2 className=''><span className="text-red-600 font-bold text-2xl">{rating}</span> <span className="text-sm text-slate-500">{reviews} opiniones</span> </h2>

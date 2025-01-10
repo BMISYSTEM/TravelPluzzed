@@ -3,7 +3,7 @@ import {heart} from '../assets/heart'
 const ButtonMovility = () => {
     return (
         
-    <div className='bg-white pl-12 w-full flex flex-row justify-between sticky top-0'>
+    <div className='bg-white pl-12 w-full flex flex-row justify-between sticky top-0 md:overflow-hidden overflow-x-auto' >
 
         <div className='text-gray-500  text-xm flex flex-row gap-8 pt-2 items-end'>
 

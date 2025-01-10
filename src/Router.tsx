@@ -18,6 +18,8 @@ import { PaisLayoutClient } from "./Client/Pais/PaisLayoutClient";
 import { ActividadCiudadLayout } from "./Client/ActividadesCiudad/ActividadCiudadLayout";
 import { UsuariosLayout } from "./Pannel/Usuarios/UsuariosLayout";
 import ActividadLayout from "./Pannel/Actividad/ActividadLayout";
+import { ConfiPedido } from "./Client/Shop/views/ConfiPedido";
+import { CancelPedido } from "./Client/Shop/views/CancelPedido";
 
 
 const router = createBrowserRouter(
@@ -29,6 +31,14 @@ const router = createBrowserRouter(
         {
             path:'/shop',
             element: <ShopLayout />,
+        },
+        {
+            path:'/pay/ok',
+            element: <ConfiPedido />,
+        },
+        {
+            path:'/pay/not',
+            element: <CancelPedido />,
         },
         {
             path:'/login',

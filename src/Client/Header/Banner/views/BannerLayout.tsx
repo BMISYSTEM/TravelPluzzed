@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import {  useRef, useState } from 'react'
 import { TextBannerEnd } from '../components/TextBannerEnd'
 // import { LinkBuscador } from '../components/LinkBuscador'
 import banner from '../assets/banner.avif'
@@ -7,34 +7,37 @@ import person from '../assets/person.svg'
 import options from '../assets/options.svg'
 import money from '../assets/money.svg'
 import 'animate.css'
-import { Countrys } from '../interface/ConfigInterface';
-import { useLocations } from '../hooks/useLocations'
 import { LinkBuscador } from '../components/LinkBuscador'
 import useSWR from 'swr'
 import { ClienteAxios } from '../../../../config/ClienteAxios'
-import { Pais } from '../interface/PaisInterface'
+import { Pais, Succe } from '../interface/PaisInterface'
 import { Ciudades } from '../interface/CiudadInterface'
 
 
 export const BannerLayout = () => {
-    const {Config} = useLocations();
+    const [buscador,setBuscador] = useState<string>('')
     const [islandSheart,setIslandSheart] = useState(false)
-    const [locations,setLocations] = useState<Countrys | null >(null)
     const buscadorRef = useRef<HTMLInputElement>(null)
-
-    // se crea una unica vez al cargara pagina o componente 
-    useEffect(()=>{
-        Config(setLocations)
-    },[])
-
-
-    const {data:allpais,isLoading:paisLoading} = useSWR('/api/pais/index',()=>
+    const {data:allpais} = useSWR('/api/pais/index',()=>
     ClienteAxios.get('/api/pais/index'))
     const pais: Pais = allpais?.data
-    const {data:allCiudad,isLoading:ciudadLoading} = useSWR('/api/ciudades/index',()=>
+    const {data:allCiudad} = useSWR('/api/ciudades/index',()=>
     ClienteAxios.get('/api/ciudades/index'))
     const ciudad:Ciudades = allCiudad?.data
-    const ciudadDetail = ciudad?.succes
+    let paises:Succe[] = pais?.succes
+    let ciudadDetail = ciudad?.succes
+    if(buscador !== ''){ 
+        const buscarCiudad = ciudadDetail?.filter(data => data.nombre.toLowerCase().includes(buscador.toLowerCase())) 
+        const buscarPaises = paises?.filter(data => data.nombre.toLowerCase().includes(buscador.toLowerCase()))   
+        if(buscarCiudad?.length > 0){
+            paises = paises?.filter(data => Number(data.id) === Number(buscarCiudad?.[0]?.pais))
+            console.log(paises)
+        }
+        if(buscarPaises?.length !== 0){
+            ciudadDetail = ciudadDetail.filter(data => Number(data.pais) === Number(buscarPaises?.[0]?.id))
+            paises = paises?.filter(data => Number(data.id) === Number(buscarPaises?.[0]?.id))
+        }
+    }
   return (
     <section className=" relative w-full h-full    " style={{
         height:'85vh'
@@ -44,7 +47,7 @@ export const BannerLayout = () => {
                 <h1 className='text-2xl font-sans text-white'>Llena tu viaje</h1>
                 <h2 className='text-4xl font-sans text-white'>Visitas guiadas y excursiones en español por todo el mundo</h2>
                 <form action="">
-                    <input type="text" ref={buscadorRef} placeholder='Busca tu destino con nosotros' className='p-3 rounded-xl md:w-[40rem] w-full' onClick={()=>setIslandSheart(true)} />
+                    <input type="text" ref={buscadorRef} value={buscador} onChange={(e)=>setBuscador(e.target.value)} placeholder='Busca tu destino con nosotros' className='p-3 rounded-xl md:w-[40rem] w-full' onClick={()=>setIslandSheart(true)} />
                     {islandSheart ? 
                         <section className='absolute md:ml-[-11rem] md:w-[60rem] w-full overflow-auto z-50 h-auto bg-white rounded-xl mt-2 shadow-2xl flex flex-col p-2 animate__animated animate__fadeIn'>
                             <div className='w-full flex items-end justify-end'>
@@ -57,8 +60,8 @@ export const BannerLayout = () => {
                             <p className='text-2xl font-bold text-rose-600 text-center'>Top destinos</p>
                             <div className='w-full flex flex-wrap p-3 gap-x-20 gap-y-10 justify-center h-96 ' >
                                 {pais?.succes ? 
-                                    pais?.succes?.map((pais,index)=>(
-                                        <LinkBuscador  key={index} textPrimary={pais?.nombre} textSecond={ciudadDetail?.filter(data => data.id === pais.id)} id={pais?.id}/>
+                                    paises?.map((pais,index)=>(
+                                        <LinkBuscador  key={index} textPrimary={pais?.nombre} textSecond={ciudadDetail?.filter(data => Number(data.pais) === Number(pais.id))} id={pais?.id}/>
                                     ))
                                     :
                                     null

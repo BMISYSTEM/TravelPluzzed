@@ -1,10 +1,13 @@
 import { useState } from "react";
-import {  Disponibilidad } from "../interface/productDetail";
 
+interface props{
+  dia:Date | undefined
+  setSelectedDate:React.Dispatch<React.SetStateAction<Date | undefined>>
+}
 
-const CalendarioLocal = () => {
+const CalendarioLocal = ({dia,setSelectedDate}:props) => {
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+
 
   const months = [
     "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", 
@@ -36,8 +39,6 @@ const CalendarioLocal = () => {
 
   // Generar los días del calendario
   const daysInMonth = getDaysInMonth(currentDate);
-  const targetDate = new Date(selectedDate);
-  const diaDespues = new Date(targetDate.getTime() + 86400000);
   
   // Obtener el primer día del mes para alinear correctamente los días de la semana
   const startDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
@@ -72,8 +73,6 @@ const CalendarioLocal = () => {
         {
         
         daysInMonth.map((day, index) => {
-          const targetDate = new Date(day.getFullYear(), day.getMonth(), day.getDate());
-          const diaDespues = new Date(targetDate.getTime() + 86400000);
           const exists = true
           return (
             <div

@@ -5,16 +5,19 @@ import { toast } from "react-toastify";
 import { ClienteAxios } from "../../config/ClienteAxios";
 import useSWR from "swr";
 import { Pais } from "../Pais/interfaces/paisInterface";
-import { Ciudades } from "./interfaces/ciudadesInterface";
+import { Ciudades, Succe } from "./interfaces/ciudadesInterface";
+import { isAxiosError } from "axios";
 
 
 export const CiudadesLayout = () => {
   const [nombre, setNombre] = useState("");
-  const [prefijo, setPrefijo] = useState("");
   const [destacado, setDestacado] = useState(false);
   const [fotos, setFotos] = useState<File>();
   const [modalNew,setModalNew] = useState(false)
   const [paisSelect,setPaisSelect] = useState(0)
+  const [modaleEdit,setModaleEdit] = useState(false)
+  const [imagen,setImagen] = useState('') 
+  const [id,setId] = useState(0)
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -51,10 +54,35 @@ export const CiudadesLayout = () => {
         }
         /* mutate() */
         mutateCiudades()
+        setFotos(undefined)
     } catch (error) {
         toast.error('Error inesperado en el servidor')
     }
   }
+
+  const handleUpdateImagen = async(event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    try {
+      const datos = new FormData();
+      datos.append("foto", file as Blob);
+      await ClienteAxios.put("/api/ciudades/updateImage/"+id, datos, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      toast.success('Imagen actualizada con exito')
+      mutateCiudades()
+      setModaleEdit(false)
+      setFotos(undefined)
+    } catch (error) {
+      if (isAxiosError(error)) {
+        toast.error('error generado en el servidor '+ error.message);
+      }else{
+        toast.error('error inesperado contacte con soporte ');
+      }
+    }
+  };
   const deleteId = async(id:number) =>{
     try {
       await ClienteAxios.delete('/api/ciudades/delete/'+id,{
@@ -69,7 +97,51 @@ export const CiudadesLayout = () => {
       toast.error('Error generado al eliminar el item')
     }
   }
-    const {data,mutate} = useSWR('/api/pais/index',()=>
+
+
+  const updateId = async(ciudad:Succe) =>{
+    setModaleEdit(true)
+    setNombre(ciudad.nombre)
+    setDestacado(ciudad.destacado ? true : false)
+    setPaisSelect(ciudad.pais)
+    setImagen(ciudad.imagen)
+    setId(ciudad.id)
+  }
+
+  const updateCiudad = async(e:React.FormEvent) =>{
+    e.preventDefault()
+    try {
+        if(!fotos)
+        {
+          const datos = {
+            nombre: nombre,
+            pais: paisSelect,
+            destacado: destacado ? 1 : 0,
+          }
+          
+          await toast.promise(
+            ClienteAxios.put('/api/ciudades/update/'+id,datos,{
+              headers:{
+                Authorization:`Bearer ${localStorage.getItem('token')}`
+              }
+            })
+            ,
+            {
+              error:'Se genero un error inesperado, contacte con soporte',
+              pending:'Actualizando el Ciudad',
+              success:'Ciudad actualizado con exito'
+            }
+          )
+
+        }
+
+        mutateCiudades()
+        setModaleEdit(false)
+    } catch (error) {
+        toast.error('Error inesperado en el servidor')
+    }
+  }
+    const {data} = useSWR('/api/pais/index',()=>
     ClienteAxios.get('/api/pais/index'))
     const allPais:Pais = data?.data
     const {data:ciudades,mutate:mutateCiudades} = useSWR('/api/ciudades/index',()=>
@@ -102,7 +174,7 @@ export const CiudadesLayout = () => {
                 <td className="py-2 px-4">{ciudad.pais}</td>
                 <td className="py-2 px-4">
                     <div>
-                    <img src={`${import.meta.env.VITE_URL_BACK}/${ciudad.imagen}`} alt="" className="w-20" />
+                    <img src={`${import.meta.env.VITE_URL_BACK_IMG}${ciudad.imagen}`} alt="" className="w-20" />
                     </div>
                 </td>
                 <td className="py-2 px-4">{ciudad.destacado ? 'Si' : 'No'}</td>
@@ -114,8 +186,8 @@ export const CiudadesLayout = () => {
                     Eliminar
                     </button>
                     <button
-                    onClick={() => {}}
-                    className="bg-blue-500 hover:bg-blue-800 text-white font-bold py-1 px-2 rounded transition"
+                      onClick={() =>updateId(ciudad)}
+                      className="bg-blue-500 hover:bg-blue-800 text-white font-bold py-1 px-2 rounded transition"
                     >
                     Editar
                     </button>
@@ -124,6 +196,55 @@ export const CiudadesLayout = () => {
             ))}
         </tbody>
       </table>
+      <ReactModal
+        isOpen={modaleEdit}
+        className={ 
+          "w-full h-full flex  justify-center items-center backdrop-blur-sm"
+        }
+      >
+        <section className="w-1/2  bg-slate-800 p-2 flex flex-col gap-5  rounded-xl">
+          <div className="w-full flex flex-row justify-end">
+            <button onClick={()=>setModaleEdit(false)} className="py-1 px-3 bg-red-500 hover:bg-red-800 text-white rounded-xl">
+              Cerrar
+            </button>
+          </div>
+          <form action="" encType="multipart/form-data" onSubmit={updateCiudad} className="w-full flex flex-col gap-5 text-slate-200">
+            <label htmlFor="">Paises</label>
+            <select name="" id="" className="border bg-slate-800 py-1 " onChange={(e)=>setPaisSelect(Number(e.target.value))}>
+                <option value="0" selected>Seleccione el pais</option>
+                {allPais?.succes?.map((pais,index)=>(
+                    <option key={index} value={pais.id} selected={paisSelect === pais.id ? true : false}>{pais.nombre}</option>
+                ))}
+            </select>
+            <InputText
+              nombre="Nombre de la ciudad"
+              setValue={setNombre}
+              valueInput={nombre}
+              type="text"
+            />
+            <div className="flex flex-col gap-2 text-white items-center justify-center">
+              <label htmlFor="">Destacado</label>
+              <input
+                type="checkbox"
+                checked={destacado}
+                onChange={() => setDestacado(!destacado)}
+              />
+            </div>
+            <div className="">
+                <img src={import.meta.env.VITE_URL_BACK_IMG + imagen} alt="" className="w-40" />
+              </div>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleUpdateImagen}
+              className="mb-4"
+            />
+            <button className="py-1 px-3 bg-green-500 text-white rounded-xl hover:bg-green-800 transition-all">
+              Guardar
+            </button>
+          </form>
+        </section>
+      </ReactModal>
       <ReactModal
         isOpen={modalNew}
         className={

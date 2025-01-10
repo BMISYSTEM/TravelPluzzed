@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import ImagesProducts from '../components/ImagesProducts';
+/* import ImagesProducts from '../components/ImagesProducts'; */
 import ButtonMovility from '../components/movilty.tsx';
 import information from '../assets/information.svg';
 import ShareButton from '../components/shareButton..tsx';
@@ -74,7 +74,7 @@ export const ActivitiesLayaout = () => {
             </div>
 
             {/* Images of the product */}
-            <ImagesProducts urlimagenes={product?.data?.images ? product?.data?.images : []!}/>
+            {/* <ImagesProducts succes={product?.data?.images ? product?.data?.images : []!}/> */}
 
             {/* Buttons for movility in the page */}
 
@@ -185,8 +185,6 @@ export const ActivitiesLayaout = () => {
                         </div>
                     </div>
                 </div>
-
-
                 {/* Comentarios */}
                 {/* {product?.comentarios.data?.map((coment,index)=>(
                     <Comentarios  calificacion={coment.rate} ciudad='Cali' mensaje={coment.content} nombre={coment.reviewerName} pais={coment.title}/>
@@ -194,9 +192,6 @@ export const ActivitiesLayaout = () => {
                 ))} */}
             </section>
             <ClientFooter/>
-            <section>
-                
-            </section>
         </section>
     )
 }

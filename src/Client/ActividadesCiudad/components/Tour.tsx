@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 
 interface props{
@@ -12,25 +11,25 @@ export const Tour = ({id,imagen,titulo,descripcion,precio}:props) => {
     return (
         <Link  to={`/actividades/detalle/local/${id}`} className="hover:shadow-xl">
             <div
-                className="bg-white w-full h-full flex flex-row rounded-sm"
+                className="bg-white w-full h-full flex flex-row rounded-sm border "
             >
                 <div className=" p-1 items-center justify-center h-44 w-1/4 ">
                     <img
-                        className="w-full  h-full object-contain"
+                        className="w-full  h-full object-fill"
                         src={imagen}
                         alt=""
                     />
                 </div>
                 {/* <img src={tours.images[1].URL} alt="" /> */}
                 {/* titulo */}
-                <div className="p-2 w-3/4 ">
+                <div className="p-2 w-4/5  ">
                     <p className="text-[#F70759] text-2xl font-bold">
                         {titulo}
                     </p>
                     {/* publicidad slogan */}
                     <div className="flex flex-row font-sans">
                         <div className="pr-4">
-                            <p className="pt-2 text-lg" dangerouslySetInnerHTML={{ __html: descripcion }}/>
+                            <p className="pt-2 text-lg md:block hidden " dangerouslySetInnerHTML={{ __html: descripcion }}/>
                             {/* que incluye */}
                             <p className="pt-4 pb-4 text-sm text-gray-500 ">
                                 {/* {tours.includes} */}
@@ -47,12 +46,13 @@ export const Tour = ({id,imagen,titulo,descripcion,precio}:props) => {
                                     USD
                                 </p>
                             </div>
-                            <div className="p-2">
-                                <p className=" border border-[#F70759] text-[#F70759] font-bold px-8 rounded-full hover:bg-[#F70759] hover:text-white transition duration-300 ease-in-out">
-                                    Ver detalles
-                                </p>
-                                <Link to={"/"}></Link>
-                            </div>
+                                <Link to={`/actividades/detalle/local/${id}`}>
+                                    <div className="p-2">
+                                        <p className=" border border-[#F70759] text-[#F70759] font-bold px-8 rounded-full hover:bg-[#F70759] hover:text-white transition duration-300 ease-in-out">
+                                            Ver detalles
+                                        </p>
+                                    </div>
+                                </Link>
                         </div>
                     </div>
                 </div>

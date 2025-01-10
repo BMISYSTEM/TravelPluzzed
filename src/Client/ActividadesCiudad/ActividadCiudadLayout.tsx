@@ -21,13 +21,13 @@ export interface Succeciudad {
 }
 
 export const ActividadCiudadLayout = () => {
-    const { ciudad, pais } = useParams()
+    const { ciudad } = useParams()
 
-    const { data: ciudadData, isLoading: ciudadLoading } = useSWR('/api/ciudades/findciudad/' + ciudad, () =>
+    const { data: ciudadData} = useSWR('/api/ciudades/findciudad/' + ciudad, () =>
         ClienteAxios.get('/api/ciudades/findciudad/' + ciudad))
     const ciudadDetalle: Ciudades = ciudadData?.data
     // consultar actividades por ciudad
-    const {data:tours,isLoading:tourLoading} = useSWR('/api/tour/index/ciudad/'+ciudad,()=>
+    const {data:tours} = useSWR('/api/tour/index/ciudad/'+ciudad,()=>
     ClienteAxios.get('/api/tour/index/ciudad/'+ciudad))
 
     const tourData:Tours = tours?.data
@@ -40,18 +40,18 @@ export const ActividadCiudadLayout = () => {
                     <div className="text-6xl absolute font-bold text-white mt-[10%] mx-5">
                         <p>{ciudadDetalle?.succes?.nombre}</p>
                     </div>
-                    <img src={`${import.meta.env.VITE_URL_BACK}/${ciudadDetalle?.succes?.imagen}`} alt="" className="w-full h-full object-cover" />
+                    <img src={`${import.meta.env.VITE_URL_BACK_IMG}${ciudadDetalle?.succes?.imagen}`} alt="" className="w-full h-full object-cover" />
                 </section>
-                <section className="w-full h-full flex flex-row">
+                <section className="w-full h-full flex flex-row justify-center p-2">
                     {/* filtros */}
-                    <div className="w-1/4 h-full flex flex-col">
+                    <div className="w-1/4 h-full md:flex flex-col hidden">
 
                     </div>
                     {/* contenido */}
-                    <div className="w-full flex flex-col gap-5 mt-5 mb-5">
+                    <div className="w-full flex flex-col gap-5 mt-5 mb-5 ">
                         {tour?.map((tour,index)=>(
                             <Tour key={index} descripcion={tour.descripcion} id={tour.id} 
-                            imagen={`${import.meta.env.VITE_URL_BACK}/${tour.imagen}`} precio={tour.precio} 
+                            imagen={`${import.meta.env.VITE_URL_BACK_IMG}/${tour.imagen}`} precio={tour.precio} 
                             titulo={tour.nombre}/>
                         ))}
                         

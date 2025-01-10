@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { ClienteAxios } from "../../config/ClienteAxios";
 import useSWR from "swr";
-import { Pais } from "./interfaces/paisInterface";
+import { Pais, Succe } from "./interfaces/paisInterface";
+import { isAxiosError } from "axios";
 
 export const PaisLayout = () => {
   const [nombre, setNombre] = useState("");
@@ -12,6 +13,9 @@ export const PaisLayout = () => {
   const [destacado, setDestacado] = useState(false);
   const [fotos, setFotos] = useState<File>();
   const [modalNew,setModalNew] = useState(false)
+  const [modalEdit,setModalEdit] = useState(false)
+  const [imageEdit,setImageEdit] = useState<string>()
+  const [idEdit,setIdEdit] = useState<number>()
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -46,6 +50,7 @@ export const PaisLayout = () => {
           )
 
         }
+        setFotos(undefined)
         mutate()
     } catch (error) {
         toast.error('Error inesperado en el servidor')
@@ -64,7 +69,66 @@ export const PaisLayout = () => {
       toast.error('Error generado al eliminar el item')
     }
   }
-  const {data,isLoading,mutate} = useSWR('/api/pais/index',()=>
+
+  const editElement = async(pais:Succe) =>{
+      setModalEdit(true)
+      setIdEdit(pais.id)
+      setNombre(pais.nombre)
+      setPrefijo(pais.prefijo.toString())
+      setDestacado(pais.destacado ? true : false)
+      setImageEdit(pais.imagen)
+  }
+  const handleClickEdit = async(e:React.FormEvent) =>{
+    e.preventDefault()
+    try {
+      if(!fotos)
+        {
+          const datos = {
+            nombre: nombre,
+            prefijo: prefijo,
+            destacado: destacado ? '1' : '0'
+          };
+          const {} = await ClienteAxios.put('/api/pais/update/'+idEdit,datos,{
+            headers:{
+              Authorization:`Bearer ${localStorage.getItem('token')}`,
+            }
+          })
+          toast.success('Pais actualizado con exito')
+          mutate()
+          setModalEdit(false)
+        }
+    } catch (error) {
+      if(isAxiosError(error)){
+        toast.error('Error inesperado en el servidor' + error.message)
+      }else{
+        toast.error('Error inesperado en el servidor')
+      }
+    }
+  }
+
+  const handleEditImage = async(event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    try {
+      const datos = new FormData();
+      datos.append("foto", file as Blob);
+      await ClienteAxios.put("/api/pais/updateImage/" + idEdit, datos, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      mutate()
+      toast.success('Imagen actualizada con exito')
+      setModalEdit(false)
+    } catch (error) {
+      if(isAxiosError(error)){
+        toast.error('Error inesperado en el servidor' + error.message)
+    }else{
+      toast.error('Error inesperado en el servidor')
+    }
+  };
+}
+  const {data,mutate} = useSWR('/api/pais/index',()=>
   ClienteAxios.get('/api/pais/index'))
   const allPais:Pais = data?.data
 
@@ -94,7 +158,7 @@ export const PaisLayout = () => {
               <td className="py-2 px-4">{pais.prefijo}</td>
               <td className="py-2 px-4">
                 <div>
-                  <img src={`${import.meta.env.VITE_URL_BACK}/${pais.imagen}`} alt="" className="w-20" />
+                  <img src={`${import.meta.env.VITE_URL_BACK_IMG}${pais.imagen}`} alt="" className="w-20" />
                 </div>
               </td>
               <td className="py-2 px-4">{pais.destacado ? 'Si' : 'No'}</td>
@@ -106,7 +170,8 @@ export const PaisLayout = () => {
                   Eliminar
                 </button>
                 <button
-                  onClick={() => {}}
+                  onClick={() =>{
+                    editElement(pais)}}
                   className="bg-blue-500 hover:bg-blue-800 text-white font-bold py-1 px-2 rounded transition"
                 >
                   Editar
@@ -116,6 +181,36 @@ export const PaisLayout = () => {
           ))}
         </tbody>
       </table>
+      {/* editar pais */}
+      <ReactModal isOpen={modalEdit} className={"w-full h-full flex  justify-center items-center backdrop-blur-sm"}>
+          <section className="w-1/2  bg-slate-800 p-2 flex flex-col gap-5  rounded-xl">
+            <div>
+              <button onClick={()=>setModalEdit(false)} className="py-1 px-3 bg-red-500 hover:bg-red-800 text-white rounded-xl">
+                Cerrar
+              </button>
+            </div>
+            <form onSubmit={handleClickEdit} action="" encType="multipart/form-data" className="w-full flex flex-col gap-5 text-slate-200">
+              <InputText nombre="Nombre del pais" setValue={setNombre} valueInput={nombre} type="text" />
+              <InputText nombre="Prefijo del pais" setValue={setPrefijo} valueInput={prefijo} type="text" />
+              <div className="flex flex-col gap-2 text-white items-center justify-center">
+                <label htmlFor="">Destacado</label>
+                <input type="checkbox" checked={destacado}  onChange={()=>setDestacado(!destacado)} />
+              </div>
+              <div className="">
+                <img src={import.meta.env.VITE_URL_BACK_IMG + imageEdit} alt="" className="w-40" />
+              </div>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleEditImage}
+                className="mb-4"
+              />
+              <button className="py-1 px-3 bg-green-500 text-white rounded-xl hover:bg-green-800 transition-all">
+                Guardar cambios
+              </button>
+            </form>
+          </section>
+      </ReactModal>
       <ReactModal
         isOpen={modalNew}
         className={

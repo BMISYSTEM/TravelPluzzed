@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Ciudades, Succe } from "../interface/CiudadInterface";
+import {  Succe } from "../interface/CiudadInterface";
 
 interface props {
   textPrimary: string;

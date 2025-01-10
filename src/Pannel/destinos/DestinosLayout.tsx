@@ -7,9 +7,9 @@ import { toast } from "react-toastify";
 import { isAxiosError } from "axios";
 import useSWR from "swr";
 import { Succe, Tours } from "./interfaces/allTours";
-import { useNavigate } from "react-router-dom";
 import ReactModal from "react-modal";
 import { ModalImagenes } from "./components/ModalImagenes";
+import Disponibilidad from "./components/Disponibilidad";
 
 export interface Pais {
   succes: Succes[];
@@ -38,7 +38,9 @@ export interface Succeciudad {
   createdAt: Date;
   updatedAt: Date;
 }
+
 export const DestinosLayout = () => {
+
   const [pantalla, setpantalla] = useState(1);
   // inputs de tour
   const [nombre, setNombre] = useState("");
@@ -64,6 +66,7 @@ export const DestinosLayout = () => {
   const [idEdit,setIdEdit] = useState<number>()
   const [modalImagen,setModalImagen] = useState(false)
   const [toutIdImagen,setTourIdImagen] = useState(0)
+  const [disponibilidad,setDisponibilidad] = useState(false)
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
@@ -352,7 +355,7 @@ export const DestinosLayout = () => {
                         Imagenes
                       </button>
                       <button onClick={()=>{
-                        setModalImagen(true)
+                        setDisponibilidad(true)
                         setTourIdImagen(tours.id)
                       }} 
                       className="py-2 px-3 rounded-sm bg-indigo-500 hover:bg-indigo-800">
@@ -763,6 +766,17 @@ export const DestinosLayout = () => {
             </button>
           </div>
           <ModalImagenes id={toutIdImagen}/>
+        </section>
+      </ReactModal>
+      {/* modal de disponibilidad con una lista de lunes a domingo en la cual se define la disponibilidad por dia */}
+      <ReactModal isOpen={disponibilidad} className="w-full h-full flex items-center justify-center backdrop-blur-sm">
+        <section className="w-1/2 h-full bg-white flex flex-col gap-2 p-2">
+              <div className="w-full flex justify-end">
+                <button onClick={()=>setDisponibilidad(false)} className="bg-red-500 hover:bg-red-800 text-white py-1 px-3 rounded-xl">
+                  Cerrar
+                </button>
+              </div>
+         <Disponibilidad id={toutIdImagen}/>     
         </section>
       </ReactModal>
     </div>
