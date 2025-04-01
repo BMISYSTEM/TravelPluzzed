@@ -5,7 +5,7 @@ interface props{
   setSelectedDate:React.Dispatch<React.SetStateAction<Date | undefined>>
 }
 
-const CalendarioLocal = ({dia,setSelectedDate}:props) => {
+const CalendarioLocal = ({setSelectedDate}:props) => {
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
 
 
@@ -48,11 +48,11 @@ const CalendarioLocal = ({dia,setSelectedDate}:props) => {
       {/**Meses */}
       <div className="w-full  mx-auto bg-white rounded-lg shadow-md p-4">
       <div className="flex justify-between items-center mb-4">
-        <button onClick={() => changeMonth("prev")} className="p-2 text-gray-600 hover:bg-gray-200 rounded w-10 h-10 text-white font-bold bg-blue-500 rounded-full">
+        <button onClick={() => changeMonth("prev")} className="p-2  hover:bg-gray-200  w-10 h-10 text-white font-bold bg-[rgb(0,141,255)] rounded-full">
           {"<"}
         </button>
         <h2 className="text-lg font-semibold text-center">{`${months[currentDate.getMonth()]} ${currentDate.getFullYear()}`}</h2>
-        <button onClick={() => changeMonth("next")} className="p-2 text-gray-600 hover:bg-gray-200 rounded w-10 h-10 text-white font-bold bg-blue-500 rounded-full">
+        <button onClick={() => changeMonth("next")} className="p-2  hover:bg-gray-200  w-10 h-10 text-white font-bold bg-[rgb(0,141,255)] rounded-full">
           {">"}
         </button>
       </div>
@@ -77,7 +77,7 @@ const CalendarioLocal = ({dia,setSelectedDate}:props) => {
           return (
             <div
               key={index}
-              className={`${exists ? 'bg-blue-500 text-white' : 'bg-slate-300 text-slate-100'} h-10 flex justify-center items-center cursor-pointer rounded-full
+              className={`${exists ? 'bg-[rgb(0,141,255)] text-white' : 'bg-slate-300 text-slate-100'} h-10 flex justify-center items-center cursor-pointer rounded-full
                `}
               onClick={() =>{
                 if(exists){

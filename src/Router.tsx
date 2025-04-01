@@ -20,6 +20,10 @@ import { UsuariosLayout } from "./Pannel/Usuarios/UsuariosLayout";
 import ActividadLayout from "./Pannel/Actividad/ActividadLayout";
 import { ConfiPedido } from "./Client/Shop/views/ConfiPedido";
 import { CancelPedido } from "./Client/Shop/views/CancelPedido";
+import { Rewards } from "./Client/rewards/Rewards";
+import { Ayuda } from "./Client/ayuda/Ayuda";
+import { RewardsPanel } from "./Pannel/Rewards/RewardsPanel";
+import { AyudaPanel } from "./Pannel/Ayuda/AyudaPanel";
 
 
 const router = createBrowserRouter(
@@ -43,6 +47,14 @@ const router = createBrowserRouter(
         {
             path:'/login',
             element: <LoginLayout />,
+        },
+        {
+            path:'/rewards',
+            element: <Rewards />,
+        },
+        {
+            path:'/ayuda',
+            element: <Ayuda />,
         },
         {
             path:'pais/:id',
@@ -79,6 +91,14 @@ const router = createBrowserRouter(
                 {
                     path:'/panel/ciudades',
                     element:<CiudadesLayout/>
+                },
+                {
+                    path:'/panel/rewards',
+                    element:<RewardsPanel/>
+                },
+                {
+                    path:'/panel/ayuda',
+                    element:<AyudaPanel/>
                 },
                 {
                     path:'/panel/usuarios',

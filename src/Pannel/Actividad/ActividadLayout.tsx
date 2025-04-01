@@ -11,12 +11,14 @@ import CalendarioLocal from "../../Client/activities/components/calendarioLocal"
 import useSWR from "swr";
 import { ClienteAxios } from "../../config/ClienteAxios";
 import { Tour } from "./interfaces/tourInterface";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Disponibilidad } from "./interfaces/disponibilidad";
 import ReactModal from "react-modal";
 
 import loading from "../../assets/footer.gif";
 import { toast, ToastContainer } from "react-toastify";
+import { IoStarSharp } from "react-icons/io5";
+import { Comenatrios } from "./interfaces/comentarios";
 export interface Fotos {
   succes: Succe[];
 }
@@ -31,66 +33,76 @@ export interface Succe {
 
 export default function ActividadLayout() {
   const { id } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [diaSelect, setDiaSelect] = useState<Date>();
   const [formattedDate, setFormattedDate] = useState<string>("");
   const [modalConfirm, setModalConfirm] = useState(false);
   const [dia, setDia] = useState<string>("");
   const [dayOfWeek, setDayOfWeek] = useState<string>("");
+  const [email, setEmail] = useState<string>();
+  const [comentario, setComentario] = useState<string>("");
+  const [puntuacion, setPuntuacion] = useState(0);
   /* consultar galeria */
   const { data: disponibilidad, isLoading: loadingDispo } = useSWR(
     "/api/tour/horario/find/" + id,
-    () => ClienteAxios.get("/api/tour/horario/find/" + id)
+    () => ClienteAxios.get("/api/tour/horario/find/" + id),
   );
   const { data: fotos, isLoading: loadingFotos } = useSWR(
     "/api/tour/index/fotos/" + id,
-    () => ClienteAxios.get("/api/tour/index/fotos/" + id)
+    () => ClienteAxios.get("/api/tour/index/fotos/" + id),
   );
   const { data: tourdata, isLoading: loadingData } = useSWR(
     "/api/tour/find/" + id,
-    () => ClienteAxios.get("/api/tour/find/" + id)
+    () => ClienteAxios.get("/api/tour/find/" + id),
   );
-
+  // comentarios
+  const {
+    data: comentariosData,
+    isLoading: loadingComentario,
+    mutate: mutateComentario,
+  } = useSWR("/api/tour/comentario/index/" + id, () =>
+    ClienteAxios.get("/api/tour/comentario/index/" + id),
+  );
+  const comentarioAll: Comenatrios = comentariosData?.data;
   const foto: Fotos = fotos?.data;
   const tour: Tour = tourdata?.data;
-
   const disponi: Disponibilidad = disponibilidad?.data;
   let disponibilidadDia = disponi?.succes;
   if (dayOfWeek !== "") {
     switch (dayOfWeek) {
       case "lunes":
         disponibilidadDia = disponibilidadDia.filter(
-          (dispo) => dispo.lunes === true
+          (dispo) => dispo.lunes === true,
         );
         break;
       case "martes":
         disponibilidadDia = disponibilidadDia.filter(
-          (dispo) => dispo.martes === true
+          (dispo) => dispo.martes === true,
         );
         break;
       case "miercoles":
         disponibilidadDia = disponibilidadDia.filter(
-          (dispo) => dispo.miercoles === true
+          (dispo) => dispo.miercoles === true,
         );
         break;
       case "jueves":
         disponibilidadDia = disponibilidadDia.filter(
-          (dispo) => dispo.jueves === true
+          (dispo) => dispo.jueves === true,
         );
         break;
       case "viernes":
         disponibilidadDia = disponibilidadDia.filter(
-          (dispo) => dispo.viernes === true
+          (dispo) => dispo.viernes === true,
         );
         break;
       case "sabado":
         disponibilidadDia = disponibilidadDia.filter(
-          (dispo) => dispo.sabado === true
+          (dispo) => dispo.sabado === true,
         );
         break;
       case "domingo":
         disponibilidadDia = disponibilidadDia.filter(
-          (dispo) => dispo.domingo === true
+          (dispo) => dispo.domingo === true,
         );
         break;
       default:
@@ -126,7 +138,32 @@ export default function ActividadLayout() {
     setDayOfWeek(day);
     setFormattedDate(formatted);
   };
-
+  // crear comentarios
+  const createComentario = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!(email && comentario && puntuacion && id)) {
+      toast.error(
+        "Para generar un comentario diligencie el formulario completo...",
+      );
+      return;
+    }
+    const dataComentario = {
+      email: email,
+      comentario: comentario,
+      start: puntuacion,
+      id_tour: id,
+    };
+    try {
+      toast.success("Guardando comentario");
+      await ClienteAxios.post("/api/tour/comentario", dataComentario);
+      toast.success("Se registro el comentario de forma correcta");
+    } catch {
+      toast.error("No se pudo registrar el comentario");
+    } finally {
+      toast.success("Proceso finalizado");
+      mutateComentario();
+    }
+  };
   useEffect(() => {
     if (diaSelect) {
       processDate(diaSelect.toISOString());
@@ -136,12 +173,12 @@ export default function ActividadLayout() {
     if (tour?.succes[0]) {
       // Leer actividadesVisitadas del localStorage (o inicializar un arreglo vacío si no existe)
       const actividadesVisitadas = JSON.parse(
-        localStorage.getItem("actividadesVisitadas") || "[]"
+        localStorage.getItem("actividadesVisitadas") || "[]",
       );
 
       // Verificar si el tour ya está en la lista
       const isAlreadyVisited = actividadesVisitadas?.some(
-        (actividad: Succe) => actividad.id === tour?.succes?.[0]?.id
+        (actividad: Succe) => actividad.id === tour?.succes?.[0]?.id,
       );
 
       if (!isAlreadyVisited) {
@@ -160,20 +197,19 @@ export default function ActividadLayout() {
         // Guardar la lista actualizada en el localStorage
         localStorage.setItem(
           "actividadesVisitadas",
-          JSON.stringify(actividadesVisitadas)
+          JSON.stringify(actividadesVisitadas),
         );
       }
     }
   }, [tour]);
 
-  if (loadingDispo || loadingFotos || loadingData) {
+  if (loadingDispo || loadingFotos || loadingData || loadingComentario) {
     return (
       <section className="w-full h-screen flex justify-center items-center bg-slate-800">
         <img src={loading} alt="" />
       </section>
     );
   }
-
   const addCart = async () => {
     const datos = {
       tour_id: tour?.succes?.[0].id,
@@ -185,7 +221,7 @@ export default function ActividadLayout() {
       de_4_15: 0,
       menores_3: 0,
       mascotas: 0,
-      precio_total:0
+      precio_total: 0,
     };
 
     // Recuperar el carrito actual del localStorage
@@ -194,7 +230,7 @@ export default function ActividadLayout() {
 
     // Validar si el tour ya existe
     const isTourInCart = cart.some(
-      (item: any) => item.tour_id === datos.tour_id
+      (item: any) => item.tour_id === datos.tour_id,
     );
 
     if (isTourInCart) {
@@ -206,10 +242,17 @@ export default function ActividadLayout() {
       localStorage.setItem("carttravel", JSON.stringify(cart));
       toast.success("El tour fue agregado al carrito");
       setModalConfirm(false);
-      navigate('/shop')
+      navigate("/shop");
     }
   };
+  const formaterFecha = (fechas = new Date()) => {
+    const fecha = new Date(fechas); // O cualquier otra fecha
+    const dia = String(fecha.getDate() + 1).padStart(2, "0"); // Obtener el día y agregar ceros a la izquierda
+    const mes = String(fecha.getMonth() + 1).padStart(2, "0"); // Obtener el mes (0-indexado)
+    const año = fecha.getFullYear(); // Obtener el año
 
+    return `${año}-${dia}-${mes}`;
+  };
   return (
     <section className="w-full h-full">
       <ClientNav />
@@ -219,7 +262,7 @@ export default function ActividadLayout() {
           <div className="flex flex-row p-4 pl-8 pr-8 justify-between w-full ">
             <div className="flex flex-row gap-4 w-1/2 pl-8">
               <Link to={`/country/${1}`}>
-                <p className="rounded-sm px-2 bg-slate-200 text-red-600">
+                <p className="rounded-sm px-2 bg-slate-200 text-[rgb(193,41,9)]">
                   Volver
                 </p>
               </Link>
@@ -231,7 +274,7 @@ export default function ActividadLayout() {
           </div>
 
           <div className="flex flex-row justify-between pl-4 items-center">
-            <div className="md:text-4xl text-xl font-bold text-black pl-12 p-4">
+            <div className="md:text-4xl text-xl font-bold text-[rgb(0,141,255)] pl-12 p-4" style={{fontFamily: 'Caveat, sans-serif'}}> 
               {tour?.succes?.[0].nombre}
             </div>
             <div className="flex flex-col pr-12 gap-2">
@@ -239,13 +282,13 @@ export default function ActividadLayout() {
                 <p className="text-sm text-gray-500 justify-end items-end">
                   Desde USD
                 </p>
-                <div className="md:text-4xl text-xl font-bold text-red-600">
+                <div className="md:text-4xl text-xl font-bold text-[rgb(193,41,9)]">
                   {" "}
                   {tour?.succes?.[0].precio} USD
                 </div>
               </div>
               <a href={"#calendario"}>
-                <div className="text-white bg-red-600 md:text-lg text-xs  rounded-full hover:bg-red-900 flex justify-center items-center">
+                <div className="text-white bg-[rgb(193,41,9)] md:text-lg text-xs  rounded-full hover:bg-red-900 flex justify-center items-center">
                   <p className="text-xm">Ver disponibilidad</p>
                 </div>
               </a>
@@ -369,7 +412,7 @@ export default function ActividadLayout() {
                             setModalConfirm(true);
                           }}
                           key={index}
-                          className="flex bg-blue-500 flex-row gap-2 items-center p-2 text-center justify-center hover:opacity-25 "
+                          className="flex bg-[rgb(0,141,255)] flex-row gap-2 items-center p-2 text-center justify-center hover:opacity-25 "
                         >
                           <p className="text-sm text-white font-semibold">
                             {dispo.hora_inicio}
@@ -418,23 +461,102 @@ export default function ActividadLayout() {
 
             <div className=" flex items-center justify-center">
               <div className="gap-2">
-                <div className="gap-2 flex flex-row">
+                {/* <div className="gap-2 flex flex-row">
                   <p className="font-bold text-red-600 text-2xl items-center">
                     Comentarios {300}
                   </p>
                   <p className="flex items-end">
                     <Star number={5} />
                   </p>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
 
-          {/* Comentarios */}
-          {/* {product?.comentarios.data?.map((coment,index)=>(
-                    <Comentarios  calificacion={coment.rate} ciudad='Cali' mensaje={coment.content} nombre={coment.reviewerName} pais={coment.title}/>
-
-                ))} */}
+          <section className="w-full h-full  px-12 mb-5">
+            <p className="text-3xl font-semibold text-slate-800">Comentarios</p>
+            <form
+              onSubmit={createComentario}
+              action=""
+              className="flex flex-col gap-2"
+            >
+              <label htmlFor="" className="text-xl">
+                Deja tu comentario
+              </label>
+              <textarea
+                value={comentario}
+                onChange={(e) => setComentario(e.target.value)}
+                name=""
+                id=""
+                className="border border-blue-500 py-2 px-3"
+              />
+              <label htmlFor="" className="text-xl">
+                Correo electronico
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="border border-blue-500 py-1 px-3"
+              />
+              <label htmlFor="" className="text-xl">
+                Puntuacion de tu experiencia
+              </label>
+              <div className="w-full flex flex-row gap-2">
+                <button type="button" onClick={() => setPuntuacion(1)}>
+                  <IoStarSharp
+                    size={30}
+                    color={puntuacion >= 1 ? "orange" : "black"}
+                  />
+                </button>
+                <button type="button" onClick={() => setPuntuacion(2)}>
+                  <IoStarSharp
+                    size={30}
+                    color={puntuacion >= 2 ? "orange" : "black"}
+                  />
+                </button>
+                <button type="button" onClick={() => setPuntuacion(3)}>
+                  <IoStarSharp
+                    size={30}
+                    color={puntuacion >= 3 ? "orange" : "black"}
+                  />
+                </button>
+                <button type="button" onClick={() => setPuntuacion(4)}>
+                  <IoStarSharp
+                    size={30}
+                    color={puntuacion >= 4 ? "orange" : "black"}
+                  />
+                </button>
+                <button type="button" onClick={() => setPuntuacion(5)}>
+                  <IoStarSharp
+                    size={30}
+                    color={puntuacion === 5 ? "orange" : "black"}
+                  />
+                </button>
+              </div>
+              <div>
+                <button className="py-2 px-3  bg-blue-500 text-white mt-5">
+                  Guardar comentario
+                </button>
+              </div>
+            </form>
+          </section>
+          <section className="w-full flex flex-col gap-2">
+            {comentarioAll?.succes?.map((comentario, index) => (
+              <div key={index} className="flex flex-col gap-2 p-2 px-12">
+                <p className="text-sm font-semibold">
+                  {formaterFecha(comentario.createdAt)}
+                </p>
+                <p className="text-xl font-semibold">
+                  Email:{comentario.email}
+                </p>
+                <p className="text-sm text-slate-600">
+                  Comentario: {comentario.email}
+                </p>
+                <Star number={comentario.start} />
+              </div>
+            ))}
+          </section>
         </section>
       </section>
       <ClientFooter />
@@ -453,7 +575,7 @@ export default function ActividadLayout() {
           {/* Botones */}
           <div className="flex justify-between gap-4">
             <button
-              onClick={()=>addCart()}
+              onClick={() => addCart()}
               className="flex-1 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition"
             >
               Sí, ir al carrito

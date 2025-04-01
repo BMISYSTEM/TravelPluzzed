@@ -4,7 +4,7 @@ import { ClienteAxios } from "../../../config/ClienteAxios";
 import { isAxiosError } from "axios";
 import useSWR from "swr";
 import gif from "../../../assets/footer.gif"
-import { Disponibilidades, Succe } from "../interfaces/Disponibilidad";
+import {  Succe } from "../interfaces/Disponibilidad";
 export default function Disponibilidad({ id }: { id: number }) {
   const [listado, setListado] = useState(true);
   const [time, setTime] = useState("");

@@ -2,7 +2,7 @@ type LinkFooter = {
     name: string;
     link: string;
   };
-
+  const baseUrl = import.meta.env.VITE_URL_BACK_IMG
   export const listsLinkFooter: LinkFooter[] = [
     {
       name: "Nosotros",
@@ -30,14 +30,14 @@ type LinkFooter = {
     },
     {
       name: "Términos y condiciones",
-      link: "https://ejemplo.com/terminos-y-condiciones",
+      link: `${baseUrl}terminos.pdf`,
     },
     {
       name: "Política de tratamiento de datos",
-      link: "https://ejemplo.com/politica-de-tratamiento-de-datos",
+      link: `${baseUrl}aviso.pdf`,
     },
     {
       name: "PROFECO",
-      link: "https://ejemplo.com/profeco",
+      link: `${baseUrl}profeco.pdf`,
     },
   ];

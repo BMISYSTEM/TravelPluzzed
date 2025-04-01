@@ -11,7 +11,7 @@ import { Order } from "../interface/respuestaOrder";
 export const ShopLayout = () => {
   const [pedidos, setPedidos] = useState<Cart[] | undefined>();
   const [pago,setPago] = useState(false)
-  const [respuesta,setRespuesta] = useState<Order>()
+  const [_,setRespuesta] = useState<Order>()
   /* inputs  */
   const [nombre,setNombre] = useState('')
   const [apellido,setApellido] = useState('')

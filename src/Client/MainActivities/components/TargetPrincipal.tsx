@@ -17,7 +17,7 @@ export const TargetPrincipal = ({IMGcarta,nombre, actividades, viajeros, opinion
     const [hoverAnimet,sethoverAnimet] = useState(false)
     return (
 
-    <div className="relative w-[25rem] h-[15rem] flex justify-center items-center group">
+    <div className="relative w-[25rem] h-[15rem] flex justify-center items-center group border-2 border-[rgb(243,245,79)]">
         <div className="absolute w-full h-full flex flex-row justify-between items-center " onMouseOver={()=>sethoverAnimet(true)}>
             <div className='relative w-full h-full'>
                 <div className='absolute w-full h-full text-end flex items-end p-3 bg-black/20'>
@@ -28,7 +28,7 @@ export const TargetPrincipal = ({IMGcarta,nombre, actividades, viajeros, opinion
             </div>
         </div>
 
-        <div className={` ${hoverAnimet ? 'flex' : 'hidden'} absolute text-white inset-0 bg-indigo-600  flex-col overflow-hidden animate__animated animate__fadeIn`}
+        <div className={` ${hoverAnimet ? 'flex' : 'hidden'} absolute text-white inset-0 bg-[rgb(48,74,159)]    flex-col overflow-hidden animate__animated animate__fadeIn`}
           onMouseOver={()=>sethoverAnimet(true)} onMouseOut={()=>sethoverAnimet(false)} >
           <h2 className="text-3xl font-extrabold pl-8 pt-8">{nombre}</h2>
 

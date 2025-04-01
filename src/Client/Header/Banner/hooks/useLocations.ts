@@ -7,7 +7,7 @@ export const useLocations = () => {
 
     const Config = async (setLocations:React.Dispatch<React.SetStateAction<Countrys | null>>) =>{
         try {
-            const {data} =  await axios.get(`${baseUrl}/api/freetours/county`);
+            const {data} =  await axios.get(`${baseUrl}/api/pais/index`);
             setLocations(data)
         } catch (error) {
             if(isAxiosError(error)){

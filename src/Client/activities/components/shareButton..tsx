@@ -17,9 +17,9 @@ const ShareButton = () => {
         <div className="relative p-2">
             <div
                 onClick={toggleDropdown}
-                className="text-red-500 flex flex-row gap-2 px-4 justify-end group cursor-pointer"
+                className="text-[rgb(193,41,9)] flex flex-row gap-2 px-4 justify-end group cursor-pointer"
             >
-                <p className='group-hover:text-red-500'> Compartir</p>
+                <p className='group-hover:text-[rgb(193,41,9)]'> Compartir</p>
                 <span dangerouslySetInnerHTML={{ __html: share }} className='text-black group-hover:text-red-500'></span>
             </div>
 

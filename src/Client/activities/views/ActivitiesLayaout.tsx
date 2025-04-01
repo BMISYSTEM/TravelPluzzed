@@ -10,6 +10,9 @@ import { DetailProduct } from '../interface/productDetail.ts';
 import Calendary from '../components/calendario.tsx';
 import { Star } from '../../Wishlist/components/star-componente.tsx';
 import { ClienteAxios } from '../../../config/ClienteAxios.ts';
+import ImagesProducts from '../components/ImagesProducts.tsx';
+import ImagesProductsFreetours from '../components/ImagesProductsFreetours.tsx';
+import Comentarios from '../components/comentarios.tsx';
 
 
 export const ActivitiesLayaout = () => {
@@ -74,7 +77,7 @@ export const ActivitiesLayaout = () => {
             </div>
 
             {/* Images of the product */}
-            {/* <ImagesProducts succes={product?.data?.images ? product?.data?.images : []!}/> */}
+            <ImagesProductsFreetours images={product?.data?.images!!}/>
 
             {/* Buttons for movility in the page */}
 
@@ -186,10 +189,10 @@ export const ActivitiesLayaout = () => {
                     </div>
                 </div>
                 {/* Comentarios */}
-                {/* {product?.comentarios.data?.map((coment,index)=>(
-                    <Comentarios  calificacion={coment.rate} ciudad='Cali' mensaje={coment.content} nombre={coment.reviewerName} pais={coment.title}/>
+                {product?.comentarios.data?.map((coment,index)=>(
+                    <Comentarios calificacion={coment.rate} ciudad='Cali' mensaje={coment.content} nombre={coment.reviewerName} pais={coment.title}/>
 
-                ))} */}
+                ))}
             </section>
             <ClientFooter/>
         </section>

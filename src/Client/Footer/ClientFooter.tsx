@@ -4,8 +4,9 @@ import { listLinkExpress } from "../../Client/Footer/data/listsLinkExpress";
 
 
 export const ClientFooter = () => {
+  
   return (
-    <footer className="bg-slate-800">
+    <footer className="bg-[rgb(48,74,159)] ">
       <div className="mx-auto w-full  p-4 py-6 lg:py-8">
         <div className="md:flex  md:justify-around">
           <div className="mb-6 md:mb-0">
@@ -18,8 +19,9 @@ export const ClientFooter = () => {
             </a>
             <div className="flex items-center justify-center gap-2">
               <a
-                href="#"
+                href="https://www.facebook.com/TravelPuzzleMexico"
                 className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+                target="_blank"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -49,8 +51,9 @@ export const ClientFooter = () => {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/travelpuzzlemx/"
                 className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+                target="_blank"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -66,8 +69,9 @@ export const ClientFooter = () => {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/company/travel-puzzle"
                 className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+                target="_blank"
               >
                 <svg
                   height="40"
@@ -83,11 +87,12 @@ export const ClientFooter = () => {
                 </svg>
               </a>
               <a
-                href="#"
+                href="http://www.youtube.com/@TravelPuzzle"
                 className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+                target="_blank"
               >
                  <a
-                href="#"
+                href="http://www.youtube.com/@TravelPuzzle"
                 className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
               >
                <svg viewBox="0 0 256 180"  height="40"
@@ -135,9 +140,7 @@ export const ClientFooter = () => {
           <span className="text-lg text-white sm:text-center">
             Registro Nacional De Turismo
           </span>
-          <span className="text-lg text-white sm:text-center">
-            Powered by Clickenial
-          </span>
+        
         </div>
       </div>
     </footer>
