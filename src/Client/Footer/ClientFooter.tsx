@@ -1,13 +1,130 @@
 import LogoFooter from "../../assets/footer.gif";
 import { listsLinkFooter } from "../../Client/Footer/data/ListsLInkFooter";
 import { listLinkExpress } from "../../Client/Footer/data/listsLinkExpress";
+import { Link } from "react-router-dom";
+import { Star } from "../Wishlist/components/star-componente";
 
+import medios from './assets/medios.png'
+import { FaFacebook, FaInstagram, FaLinkedin, FaPinterest, FaTiktok, FaYoutube } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 export const ClientFooter = () => {
   
   return (
-    <footer className="bg-[rgb(48,74,159)] ">
-      <div className="mx-auto w-full  p-4 py-6 lg:py-8">
+    <footer className="bg-[rgb(48,74,159)] flex flex-col gap-2 p-5">
+      <section className="w-full flex flex-row gap-5 items-start   justify-between px-5">
+        <div className="w-full h-full flex flex-col gap-2">
+          <p className="text-xl text-white font-bold mb-2">Travel Puzzle</p>
+          <Link to={'/quienes-somos'} className="text-white text-sm border-white hover:border-b ">
+            <p>Quienes Somos</p>
+          </Link>
+          <Link to={'/legal'} className="text-white border-white text-sm hover:border-b ">
+            <p>Legal</p>
+          </Link>
+          <Link to={'/habla-con-viajero'} className="text-white border-white text-sm hover:border-b ">
+            <p>Habla con un viajero que ya estuvo ahi</p>
+          </Link>
+          <Link to={'/habla-con-viajero'} className="text-white border-white text-sm hover:border-b ">
+            <p>Regala Travel Puzzle</p>
+          </Link>
+        </div>
+        <div className="w-full h-full flex flex-col gap-2">
+          <p className="text-xl text-white font-bold mb-2">Insipiracion</p>
+          <Link to={'/blog'} className="text-white text-sm border-white hover:border-b ">
+            <p>Blog</p>
+          </Link>
+          <Link to={'/Rewards'} className="text-white text-sm border-white hover:border-b ">
+            <p>Puzzle Rewards</p>
+          </Link>
+          <Link to={'/Rewards'} className="text-white text-sm border-white hover:border-b ">
+            <p>Genki Japon</p>
+          </Link>
+        </div>
+        <div className="w-full h-full flex flex-col gap-2">
+          <p className="text-xl text-white font-bold mb-2">Trabaja con nosotros</p>
+          <Link to={'/proveedores'} className="text-white text-sm border-white hover:border-b ">
+            <p>Proveedores</p>
+          </Link>
+          <Link to={'/afiliados'} className="text-white text-sm border-white hover:border-b ">
+            <p>Afiliados</p>
+          </Link>
+          <Link to={'/agencia-de-viaje'} className="text-white text-sm border-white hover:border-b ">
+            <p>Agencias de viaje</p>
+          </Link>
+          <Link to={'/alojamientos'} className="text-white text-sm border-white hover:border-b ">
+            <p>Alojamientos</p>
+          </Link>
+          <Link to={'/transporte'} className="text-white text-sm border-white hover:border-b ">
+            <p>Transportes</p>
+          </Link>
+        </div>
+        <div className="w-full h-full flex flex-col gap-2">
+          <p className="text-xl text-white font-bold mb-2">Ayuda</p>
+          <Link to={'/contactar'} className="text-white text-sm border-white hover:border-b ">
+            <p>Contactar con travel Puzzle</p>
+          </Link>
+        </div>
+      </section>
+      <section className="w-full flex flex-row justify-between items-start gap-5 px-5">
+        <div className="w-full h-full flex flex-col gap-2 items-start justify-start ">
+          <p className="text-xl text-white font-bold mb-2">Como nos valoran</p>
+          <div className="w-full flex flex-row gap-2 items-center">
+            <p className="text-3xl text-white">9.1/10</p>
+            <Star key={1} number={5}/>
+          </div>
+          <p className="text-sm text-white">Mas de 1.5000.000 opiniones sobre <br/>Travel Puzzle.com</p>
+        </div>
+        <div className="w-full h-full flex flex-col gap-2">
+          <p className="text-xl text-white font-bold mb-2 text-center">Grupo VARROD</p>
+          <div className="w-full flex flex-col gap-2 items-center">
+            <p className="text-lg text-white font-mono">[NOMADA DIGITAL]</p>
+            <p className="text-sm text-white">Vuela Libre</p>
+          </div>
+          <p className=" text-white text-center text-sm">Portabilidad Facil</p>
+          <p className=" text-white text-center text-sm">Saber Hoy es Poder <span className="text-sm text-white">un grande para lla vida</span></p>
+          <p className=" text-white text-center text-sm">CAPITAN JACK<br/>Mariscos & drinks</p>
+        </div>
+        <div className="w-full h-full flex flex-col gap-2  ">
+          <p className="text-xl text-white font-bold mb-2">Medios de pago</p>
+          <img src={medios} alt="Medios de pago" width={400} height={400}/>
+        </div>
+        <div className="w-full h-full flex flex-col gap-2 items-center justify-center">
+          <p className="text-xl text-white font-bold mb-2">Siguenos</p>
+          <div className="w-full flex flex-wrap gap-2 items-center justify-center">
+            <Link to={'https://www.facebook.com/TravelPuzzleMexico'} target="_blank">
+              <FaFacebook fontSize={30} color="white"/>
+            </Link>
+            <Link to={'/'} target="_blank">
+              <FaXTwitter fontSize={30} color="white"/>
+            </Link>
+            <Link to={'https://www.linkedin.com/company/travel-puzzle'} target="_blank">
+              <FaLinkedin fontSize={30} color="white"/>
+            </Link>
+            <Link to={'https://www.instagram.com/travelpuzzlemx/'} target="_blank">
+              <FaInstagram fontSize={30} color="white"/>
+            </Link>
+            <div className="w-full"></div>
+            <Link to={'/'} target="_blank">
+              <FaPinterest fontSize={30} color="white"/>
+            </Link>
+            <Link to={'/'} target="_blank">
+              <FaTiktok fontSize={30} color="white"/>
+            </Link>
+            <Link to={'http://www.youtube.com/@TravelPuzzle'} target="_blank">
+              <FaYoutube fontSize={30} color="white"/>
+            </Link>
+          </div>
+        </div>
+      </section>
+      <section className="w-full flex flex-row justify-between items-center gap-5">
+        <div className="w-full">
+          <p className="text-white text-xl font-bold">Travel Puzzle</p>
+        </div>
+        <div className="w-full text-end">
+          <p className="text-sm text-white">2025 Travel Puzzle <br/>Todos los derechos reservados.</p>
+        </div>
+      </section>
+      {/* <div className="mx-auto w-full  p-4 py-6 lg:py-8">
         <div className="md:flex  md:justify-around">
           <div className="mb-6 md:mb-0">
             <a href="#" className="flex items-center justify-center">
@@ -142,7 +259,7 @@ export const ClientFooter = () => {
           </span>
         
         </div>
-      </div>
+      </div> */}
     </footer>
   );
 };

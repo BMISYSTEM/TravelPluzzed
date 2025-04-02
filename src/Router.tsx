@@ -24,6 +24,7 @@ import { Rewards } from "./Client/rewards/Rewards";
 import { Ayuda } from "./Client/ayuda/Ayuda";
 import { RewardsPanel } from "./Pannel/Rewards/RewardsPanel";
 import { AyudaPanel } from "./Pannel/Ayuda/AyudaPanel";
+import { Legal } from "./Client/Legal/Legal";
 
 
 const router = createBrowserRouter(
@@ -31,6 +32,10 @@ const router = createBrowserRouter(
         {
             path:'/',
             element: <HomeLayaut />,
+        },
+        {
+            path:'/legal',
+            element: <Legal />,
         },
         {
             path:'/shop',
