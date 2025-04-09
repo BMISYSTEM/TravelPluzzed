@@ -1,6 +1,4 @@
-import children from '../assets/children.svg';
 import { Star } from '../../Wishlist/components/star-componente';
-import {aprobado} from '../assets/aprobado';
 
 interface mensajeProps {
     nombre: string;

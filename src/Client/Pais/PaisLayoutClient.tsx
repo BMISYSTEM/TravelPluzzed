@@ -1,13 +1,11 @@
 import { Link, useParams } from "react-router-dom"
 import { ClientNav } from "../Header/nav/ClientNav"
-import useSWR from "swr"
 import { ClienteAxios } from "../../config/ClienteAxios"
 import { TargetPrincipal } from "../MainActivities/components/TargetPrincipal";
 import { ClientFooter } from "../Footer/ClientFooter";
 import { useEffect, useState } from "react";
 import { PaisData } from "./interfaces/paisData";
 import { CiudadData } from "./interfaces/ciudadData";
-import { CiudadFreetours } from "./interfaces/ciudadFreetours";
 
 export interface Pais {
   succes: Succes;

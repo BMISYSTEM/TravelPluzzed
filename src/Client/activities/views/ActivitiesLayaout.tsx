@@ -10,9 +10,9 @@ import { DetailProduct } from '../interface/productDetail.ts';
 import Calendary from '../components/calendario.tsx';
 import { Star } from '../../Wishlist/components/star-componente.tsx';
 import { ClienteAxios } from '../../../config/ClienteAxios.ts';
-import ImagesProducts from '../components/ImagesProducts.tsx';
 import ImagesProductsFreetours from '../components/ImagesProductsFreetours.tsx';
 import Comentarios from '../components/comentarios.tsx';
+import { ClientNav } from '../../Header/nav/ClientNav.tsx';
 
 
 export const ActivitiesLayaout = () => {
@@ -49,6 +49,7 @@ export const ActivitiesLayaout = () => {
 
     return (
         <section className="w-full h-full bg-slate-100 overflow-hidden ">
+            <ClientNav/>
             <div className="flex flex-col w-full h-full">
                 <div className="flex flex-row p-4 pl-8 pr-8 justify-between w-full ">
                     <div className='flex flex-row gap-4 w-1/2 pl-8'>
@@ -190,7 +191,7 @@ export const ActivitiesLayaout = () => {
                 </div>
                 {/* Comentarios */}
                 {product?.comentarios.data?.map((coment,index)=>(
-                    <Comentarios calificacion={coment.rate} ciudad='Cali' mensaje={coment.content} nombre={coment.reviewerName} pais={coment.title}/>
+                    <Comentarios key={index} calificacion={coment.rate} ciudad='Cali' mensaje={coment.content} nombre={coment.reviewerName} pais={coment.title}/>
 
                 ))}
             </section>

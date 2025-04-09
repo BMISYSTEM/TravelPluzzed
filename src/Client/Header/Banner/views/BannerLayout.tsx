@@ -1,7 +1,6 @@
 import {  useEffect, useRef, useState } from 'react'
 import { TextBannerEnd } from '../components/TextBannerEnd'
 // import { LinkBuscador } from '../components/LinkBuscador'
-import banner from '../assets/banner.avif'
 import check from '../assets/check.svg'
 import person from '../assets/person.svg'
 import options from '../assets/options.svg'

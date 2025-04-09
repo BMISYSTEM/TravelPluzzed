@@ -1,6 +1,4 @@
-import LogoFooter from "../../assets/footer.gif";
-import { listsLinkFooter } from "../../Client/Footer/data/ListsLInkFooter";
-import { listLinkExpress } from "../../Client/Footer/data/listsLinkExpress";
+
 import { Link } from "react-router-dom";
 import { Star } from "../Wishlist/components/star-componente";
 
