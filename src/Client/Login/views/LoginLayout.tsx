@@ -36,6 +36,13 @@ export const LoginLayout = () => {
         } catch (error) {
             if(isAxiosError(error))
             {
+                if(error?.response?.data){
+                    if(error?.response?.data?.usuario)
+                        toast.error(error?.response?.data.usuario); // Accede al mensaje de error correctamente
+                    if(error?.response?.data?.password){
+                        toast.error(error?.response?.data.password); 
+                    }
+                }
                 if(error.response?.data?.errors)
                 {
                     const errores = Object.values(error.response.data.errors) as { msg: string }[];

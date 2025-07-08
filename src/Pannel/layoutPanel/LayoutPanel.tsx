@@ -80,6 +80,14 @@ export const LayoutPanel = () => {
                     Ayuda
                     </Link>
                 </li>
+                <li>
+                    <Link
+                    to="/panel/banner"
+                    className="block py-2.5 px-4 rounded hover:bg-gray-700 hover:text-white transition"
+                    >
+                    Banner
+                    </Link>
+                </li>
                {/*  <li>
                     <Link
                     to="/panel/apis"

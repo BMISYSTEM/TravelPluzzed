@@ -25,6 +25,7 @@ import { Ayuda } from "./Client/ayuda/Ayuda";
 import { RewardsPanel } from "./Pannel/Rewards/RewardsPanel";
 import { AyudaPanel } from "./Pannel/Ayuda/AyudaPanel";
 import { Legal } from "./Client/Legal/Legal";
+import { Banner } from "./Pannel/Banner/Banner";
 
 
 const router = createBrowserRouter(
@@ -128,6 +129,10 @@ const router = createBrowserRouter(
                 {
                     path:'/panel/opiniones',
                     element:<ComentariosLayout/>
+                },
+                {
+                    path:'/panel/banner',
+                    element:<Banner/>
                 },
                 {
                     path:'/panel/apis',

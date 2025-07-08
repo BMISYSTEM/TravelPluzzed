@@ -26,7 +26,7 @@ export const MainActivitiesLayout = () => {
         {isLoading ? 
           <p className="text-xl text-slate-500 animate-pulse">Cargando informacion...</p>
         :
-        paisesDestacados.succes?.map((pais, index) => (
+        paisesDestacados?.succes?.map((pais, index) => (
             <Link className="" to={`/pais/${pais.id}`} key={index}>
               <TargetPrincipal
                 IMGcarta={`${import.meta.env.VITE_URL_BACK_IMG}${pais.imagen}`}
